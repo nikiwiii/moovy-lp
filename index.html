@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moovy — Stop scrolling. Start watching.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=Inter:wght@400;500;600&display=swap');
+
+        :root {
+            --bg: #14100d;
+            --bg-soft: #1c1611;
+            --card: #211a15;
+            --line: rgba(255, 237, 213, 0.09);
+            --ink: #f3ece2;
+            --ink-dim: #a89a87;
+            --ink-faint: #6e6256;
+            --amber: #e8924a;
+            --amber-bright: #ffaa5c;
+            --amber-dim: #6b4626;
+            --green: #7fae8e;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--bg);
+            color: var(--ink);
+            font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
+        }
+
+        .serif {
+            font-family: 'Fraunces', serif;
+        }
+
+        /* ambient grain */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            z-index: 1;
+            pointer-events: none;
+            background-image: radial-gradient(circle, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+            background-size: 3px 3px;
+            opacity: 0.5;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 22px 48px;
+            backdrop-filter: blur(12px);
+            background: linear-gradient(to bottom, rgba(20, 16, 13, 0.85), transparent);
+        }
+
+        .logo {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 1.3rem;
+            letter-spacing: -0.3px;
+            color: var(--ink);
+        }
+
+        .logo span {
+            color: var(--amber);
+        }
+
+        .nav-cta {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--ink);
+            background: transparent;
+            border: 1px solid var(--line);
+            padding: 9px 18px;
+            border-radius: 100px;
+            cursor: pointer;
+            transition: all .25s ease;
+            text-decoration: none;
+        }
+
+        .nav-cta:hover {
+            border-color: var(--amber);
+            color: var(--amber-bright);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 140px 24px 80px;
+            position: relative;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 8%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 400px;
+            background: radial-gradient(ellipse, rgba(232, 146, 74, 0.16) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .eyebrow {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 28px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: rise 0.8s ease forwards 0.1s;
+        }
+
+        .eyebrow::before,
+        .eyebrow::after {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--amber-dim);
+        }
+
+        .hero h1 {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: clamp(2.6rem, 7vw, 5.4rem);
+            line-height: 1.04;
+            letter-spacing: -2px;
+            max-width: 920px;
+            opacity: 0;
+            animation: rise 0.9s ease forwards 0.25s;
+        }
+
+        .hero h1 .it {
+            font-style: italic;
+            font-weight: 500;
+            color: var(--amber-bright);
+        }
+
+        .hero-sub {
+            margin-top: 26px;
+            font-size: 1.08rem;
+            color: var(--ink-dim);
+            font-weight: 400;
+            max-width: 460px;
+            line-height: 1.6;
+            opacity: 0;
+            animation: rise 0.9s ease forwards 0.4s;
+        }
+
+        .hero-actions {
+            margin-top: 42px;
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: rise 0.9s ease forwards 0.55s;
+        }
+
+        .btn-primary {
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 0.95rem;
+            background: var(--amber);
+            color: #1a1209;
+            padding: 15px 30px;
+            border-radius: 100px;
+            border: none;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all .25s ease;
+            box-shadow: 0 8px 24px -8px rgba(232, 146, 74, 0.5);
+        }
+
+        .btn-primary:hover {
+            background: var(--amber-bright);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 28px -8px rgba(232, 146, 74, 0.6);
+        }
+
+        .btn-secondary {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--ink-dim);
+            padding: 15px 22px;
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: all .2s;
+        }
+
+        .btn-secondary:hover {
+            color: var(--ink);
+            border-color: var(--ink-faint);
+        }
+
+        .hero-note {
+            margin-top: 18px;
+            font-size: 0.78rem;
+            color: var(--ink-faint);
+            opacity: 0;
+            animation: rise 0.9s ease forwards 0.65s;
+        }
+
+        @keyframes rise {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ===== PROBLEM STRIP ===== */
+        .problem {
+            border-top: 1px solid var(--line);
+            border-bottom: 1px solid var(--line);
+            padding: 28px 24px;
+            overflow: hidden;
+            background: var(--bg-soft);
+        }
+
+        .marquee {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll 32s linear infinite;
+        }
+
+        .marquee span {
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            font-weight: 400;
+            font-size: 1.1rem;
+            color: var(--ink-faint);
+            margin-right: 50px;
+            flex-shrink: 0;
+        }
+
+        .marquee span::after {
+            content: '·';
+            margin-left: 50px;
+            color: var(--amber-dim);
+            font-style: normal;
+        }
+
+        @keyframes scroll {
+            from {
+                transform: translateX(0);
+            }
+
+            to {
+                transform: translateX(-50%);
+            }
+        }
+
+        /* ===== STEPS ===== */
+        .steps-section {
+            padding: 130px 24px 100px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-head {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: clamp(1.9rem, 4vw, 2.7rem);
+            letter-spacing: -1px;
+            max-width: 600px;
+            margin: 0 auto;
+            line-height: 1.15;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--amber-bright);
+        }
+
+        .steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0;
+            position: relative;
+        }
+
+        .steps::before {
+            content: '';
+            position: absolute;
+            top: 34px;
+            left: 16.5%;
+            right: 16.5%;
+            height: 1px;
+            background: repeating-linear-gradient(to right, var(--line) 0, var(--line) 6px, transparent 6px, transparent 14px);
+        }
+
+        .step {
+            padding: 0 28px;
+            position: relative;
+            text-align: left;
+        }
+
+        .step-num {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 1.1rem;
+            width: 68px;
+            height: 68px;
+            border-radius: 50%;
+            background: var(--card);
+            border: 1px solid var(--line);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--amber-bright);
+            margin-bottom: 26px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .step-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            letter-spacing: -0.3px;
+        }
+
+        .step-desc {
+            font-size: 0.92rem;
+            color: var(--ink-dim);
+            line-height: 1.6;
+            max-width: 270px;
+        }
+
+        /* ===== DEMO / PROOF ===== */
+        .demo-section {
+            padding: 60px 24px 140px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .demo-grid {
+            display: grid;
+            grid-template-columns: 0.85fr 1.15fr;
+            gap: 64px;
+            align-items: center;
+        }
+
+        .demo-copy-eyebrow {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 18px;
+        }
+
+        .demo-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: clamp(1.7rem, 3.2vw, 2.3rem);
+            letter-spacing: -0.8px;
+            line-height: 1.18;
+            margin-bottom: 22px;
+        }
+
+        .demo-title em {
+            font-style: italic;
+            color: var(--amber-bright);
+        }
+
+        .demo-text {
+            font-size: 0.98rem;
+            color: var(--ink-dim);
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+
+        .demo-text strong {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        .group-avatars {
+            display: flex;
+            margin: 28px 0;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 2px solid var(--bg);
+            margin-left: -10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: #1a1209;
+        }
+
+        .avatar:first-child {
+            margin-left: 0;
+        }
+
+        .a1 {
+            background: var(--amber);
+        }
+
+        .a2 {
+            background: var(--green);
+        }
+
+        .a3 {
+            background: #c98ba6;
+        }
+
+        .a4 {
+            background: #7a9bc9;
+        }
+
+        .group-label {
+            font-size: 0.8rem;
+            color: var(--ink-faint);
+            margin-left: 14px;
+            align-self: center;
+        }
+
+        /* result card mock */
+        .result-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            padding: 28px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 30px 60px -20px rgba(0, 0, 0, 0.5);
+        }
+
+        .result-card::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(232, 146, 74, 0.08), transparent 70%);
+        }
+
+        .result-top {
+            display: flex;
+            gap: 18px;
+            margin-bottom: 22px;
+            position: relative;
+        }
+
+        .poster-mock {
+            width: 84px;
+            height: 124px;
+            border-radius: 10px;
+            flex-shrink: 0;
+            background: linear-gradient(150deg, #3a2a1c, #1c140d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Fraunces', serif;
+            font-style: italic;
+            color: var(--ink-faint);
+            font-size: 0.7rem;
+            border: 1px solid var(--line);
+        }
+
+        .result-meta-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 600;
+            font-size: 1.25rem;
+            letter-spacing: -0.3px;
+            margin-bottom: 8px;
+        }
+
+        .result-tags {
+            display: flex;
+            gap: 7px;
+            flex-wrap: wrap;
+            margin-bottom: 10px;
+        }
+
+        .tag {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 4px 10px;
+            border-radius: 100px;
+            border: 1px solid var(--line);
+            color: var(--ink-dim);
+        }
+
+        .result-stats {
+            display: flex;
+            gap: 14px;
+            font-size: 0.78rem;
+            color: var(--ink-faint);
+        }
+
+        .result-stats b {
+            color: var(--amber-bright);
+        }
+
+        .why-box {
+            background: rgba(232, 146, 74, 0.06);
+            border: 1px solid rgba(232, 146, 74, 0.18);
+            border-radius: 12px;
+            padding: 18px 20px;
+            position: relative;
+        }
+
+        .why-label {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 8px;
+        }
+
+        .why-text {
+            font-size: 0.87rem;
+            line-height: 1.6;
+            color: var(--ink-dim);
+            font-style: normal;
+        }
+
+        .why-text b {
+            color: var(--ink);
+            font-weight: 600;
+        }
+
+        /* ===== VIBES ===== */
+        .vibes-section {
+            padding: 40px 24px 140px;
+            max-width: 1100px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .vibes-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 48px;
+        }
+
+        .vibe-pill {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: 0.95rem;
+            padding: 12px 22px;
+            border-radius: 100px;
+            border: 1px solid var(--line);
+            color: var(--ink-dim);
+            background: var(--card);
+            transition: all .25s ease;
+            cursor: default;
+        }
+
+        .vibe-pill:hover {
+            border-color: var(--amber);
+            color: var(--amber-bright);
+            transform: translateY(-3px);
+        }
+
+        /* ===== CTA FOOTER ===== */
+        .cta-section {
+            padding: 130px 24px;
+            text-align: center;
+            position: relative;
+            border-top: 1px solid var(--line);
+        }
+
+        .cta-glow {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 700px;
+            height: 350px;
+            background: radial-gradient(ellipse, rgba(232, 146, 74, 0.13) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-title {
+            font-family: 'Fraunces', serif;
+            font-weight: 500;
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            letter-spacing: -1.5px;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            line-height: 1.1;
+            position: relative;
+        }
+
+        .cta-title em {
+            font-style: italic;
+            color: var(--amber-bright);
+        }
+
+        footer {
+            border-top: 1px solid var(--line);
+            padding: 36px 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            font-size: 0.78rem;
+            color: var(--ink-faint);
+        }
+
+        footer .logo {
+            font-size: 1rem;
+        }
+
+        /* responsive */
+        @media (max-width: 900px) {
+            .demo-grid {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .steps {
+                grid-template-columns: 1fr;
+                gap: 44px;
+            }
+
+            .steps::before {
+                display: none;
+            }
+
+            .step {
+                padding: 0;
+                text-align: center;
+            }
+
+            .step-num {
+                margin: 0 auto 22px;
+            }
+
+            .step-desc {
+                margin: 0 auto;
+            }
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                padding: 18px 20px;
+            }
+
+            .hero {
+                padding: 110px 20px 60px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn-primary {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .steps-section,
+            .demo-section,
+            .vibes-section,
+            .cta-section {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+
+            .steps-section {
+                padding-top: 90px;
+            }
+
+            footer {
+                padding: 28px 20px;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+            }
+
+            html {
+                scroll-behavior: auto;
+            }
+        }
+
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--amber);
+            outline-offset: 3px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <div class="logo">moovy<span>.</span></div>
+        <a href="#cta" class="nav-cta">Get early access</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="eyebrow">Now in private testing</div>
+        <h1>Stop scrolling.<br>Start <span class="it">watching.</span></h1>
+        <p class="hero-sub">Everyone picks their mood. Moovy finds the one movie your whole group will actually agree on
+            — in under two minutes.</p>
+        <div class="hero-actions">
+            <a href="#cta" class="btn-primary">Join the waitlist →</a>
+            <a href="#how" class="btn-secondary">See how it works</a>
+        </div>
+        <div class="hero-note">No account needed to join a session</div>
+    </section>
+
+    <!-- PROBLEM MARQUEE -->
+    <div class="problem">
+        <div class="marquee">
+            <span>40 minutes of scrolling, still nothing picked</span>
+            <span>"I don't care, you choose"</span>
+            <span>Three people, three different moods</span>
+            <span>The group chat that never decides</span>
+            <span>Someone always vetoes the pick</span>
+            <span>40 minutes of scrolling, still nothing picked</span>
+            <span>"I don't care, you choose"</span>
+            <span>Three people, three different moods</span>
+            <span>The group chat that never decides</span>
+            <span>Someone always vetoes the pick</span>
+        </div>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section class="steps-section" id="how">
+        <div class="section-head">
+            <div class="section-eyebrow">How it works</div>
+            <h2 class="section-title">From group chat to <em>movie night</em>, in three steps</h2>
+        </div>
+        <div class="steps">
+            <div class="step">
+                <div class="step-num">1</div>
+                <div class="step-title">Start a session</div>
+                <div class="step-desc">Send a link. Friends join instantly — no app, no account, no sign-up required.
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-num">2</div>
+                <div class="step-title">Pick your mood</div>
+                <div class="step-desc">Everyone taps the vibes they're feeling, sets a runtime, and rules out anything
+                    they hate.</div>
+            </div>
+            <div class="step">
+                <div class="step-num">3</div>
+                <div class="step-title">Get your match</div>
+                <div class="step-desc">Moovy reads the whole group and returns three films — with a reason the pick
+                    actually works for you.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DEMO / PROOF -->
+    <section class="demo-section">
+        <div class="demo-grid">
+            <div>
+                <div class="demo-copy-eyebrow">The part that ends the argument</div>
+                <h3 class="demo-title">Not just a film.<br><em>A reason</em> everyone agrees with.</h3>
+                <p class="demo-text">Most apps stop at a title. Moovy explains <strong>why</strong> — reading what every
+                    single person in the session wanted, and showing the one answer that satisfies the whole group.</p>
+                <p class="demo-text">No more "why did it pick this." Just hand someone the phone and let them read it
+                    out loud.</p>
+                <div class="group-avatars">
+                    <div class="avatar a1">M</div>
+                    <div class="avatar a2">K</div>
+                    <div class="avatar a3">Z</div>
+                    <div class="avatar a4">J</div>
+                    <span class="group-label">Marek, Kasia, Zuza & Jan's session</span>
+                </div>
+            </div>
+
+            <div class="result-card">
+                <div class="result-top">
+                    <div class="poster-mock">poster</div>
+                    <div>
+                        <div class="result-meta-title">Everything Everywhere</div>
+                        <div class="result-tags">
+                            <span class="tag">Sci-Fi</span>
+                            <span class="tag">Comedy</span>
+                            <span class="tag">Family</span>
+                        </div>
+                        <div class="result-stats"><span><b>8.0</b> rating</span><span><b>140</b> min</span></div>
+                    </div>
+                </div>
+                <div class="why-box">
+                    <div class="why-label">Why this fits your group</div>
+                    <p class="why-text">Marek wanted <b>mind-bender</b>, Zuza picked <b>pizza chill</b> — this one is
+                        weird enough to satisfy Marek and warm enough to stay relaxing for everyone else. Nobody's hated
+                        genre (horror) shows up.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VIBES -->
+    <section class="vibes-section">
+        <div class="section-eyebrow">Pick your mood, not a genre</div>
+        <h2 class="section-title">Nobody thinks in <em>genres.</em><br>They think in vibes.</h2>
+        <div class="vibes-list">
+            <span class="vibe-pill">Pizza Chill</span>
+            <span class="vibe-pill">Mind Bender</span>
+            <span class="vibe-pill">Adrenaline</span>
+            <span class="vibe-pill">Ugly Cry</span>
+            <span class="vibe-pill">Background Noise</span>
+            <span class="vibe-pill">Edge of Seat</span>
+            <span class="vibe-pill">Brain Off</span>
+            <span class="vibe-pill">Date Night</span>
+            <span class="vibe-pill">Nostalgia Trip</span>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="cta">
+        <div class="cta-glow"></div>
+        <h2 class="cta-title">Your next movie night<br>is <em>one link</em> away.</h2>
+        <div class="hero-actions" style="position: relative;">
+            <a href="#" class="btn-primary">Join the waitlist →</a>
+        </div>
+        <div class="hero-note">We're testing with small groups first. Spots are limited.</div>
+    </section>
+
+    <footer>
+        <div class="logo">moovy<span style="color:#e8924a">.</span></div>
+        <div>Built for movie nights that actually happen.</div>
+    </footer>
+
+</body>
+
+</html>
