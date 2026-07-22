@@ -68,6 +68,8 @@ void mainImage(out vec4 fragColor,in vec2 fragCoord){
 void main(){
     vec4 col;mainImage(col,gl_FragCoord.xy);
     col.rgb=hueShiftRGB(col.rgb,uHueShift);
+    // Boost luminance and contrast for dark background visibility
+    col.rgb=clamp((col.rgb - 0.05) * 2.5 + 0.1, 0.0, 1.0);
     float scanline_val=sin(gl_FragCoord.y*uScanFreq)*0.5+0.5;
     col.rgb*=1.-(scanline_val*scanline_val)*uScan;
     col.rgb+=(rand(gl_FragCoord.xy+uTime)-0.5)*uNoise;
@@ -124,8 +126,8 @@ export default function DarkVeil({
     const mesh = new Mesh(gl, { geometry, program });
 
     const resize = () => {
-      const w = parent.clientWidth || window.innerWidth;
-      const h = parent.clientHeight || window.innerHeight;
+      const w = window.innerWidth || 1920;
+      const h = window.innerHeight || 1080;
       renderer.setSize(w * resolutionScale, h * resolutionScale);
       canvas.style.width = '100%';
       canvas.style.height = '100%';

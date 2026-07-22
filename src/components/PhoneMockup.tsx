@@ -17,48 +17,48 @@ export default function PhoneMockup() {
 
   const screens: ScreenDetails[] = [
     {
-      image: "/moovy/0.jpg",
-      title: "Moovy Lobby",
+      image: "/moovy/1.jpg",
+      title: "Welcome to moovy®",
       desc: "Start a group session in seconds. Set your basic parameters and get ready to invite your friends.",
     },
     {
-      image: "/moovy/1.jpg",
-      title: "Invite Room",
-      desc: "Get your invite link. Your friends can join instantly from any device — no account or login needed.",
-    },
-    {
-      image: "/moovy/2.jpg",
-      title: "Quick Lobby Info",
-      desc: "See who is in the session in real-time. Everyone is ready to vote on the vibes.",
-    },
-    {
-      image: "/moovy/3.jpg",
-      title: "Select Movie Length",
-      desc: "Align on the time duration. Whether you want a quick 90-minute film or a 3-hour epic, Moovy filters it.",
-    },
-    {
-      image: "/moovy/4.jpg",
-      title: "Vibe Selection",
-      desc: "Tap the feelings you want tonight. We translate 'Date Night' or 'Mind Bender' into exact recommendations.",
-    },
-    {
-      image: "/moovy/5.jpg",
-      title: "Veto Filter",
-      desc: "Rules out genres you absolute hate. If one person selects 'No Horror', it's gone for the night.",
-    },
-    {
       image: "/moovy/6.jpg",
-      title: "Session Matching",
-      desc: "Our engine processes group votes and scores candidates based on mutual moods and exclusions.",
+      title: "Zero-Friction Invites",
+      desc: "Share your session link. Friends join instantly from any browser — no app store download or sign-up needed.",
     },
     {
       image: "/moovy/7.jpg",
+      title: "Live Lobby Sync",
+      desc: "See who joins in real time. Everyone is connected and ready to vote on the night's mood.",
+    },
+    {
+      image: "/moovy/2.jpg",
+      title: "Runtime Boundary Filter",
+      desc: "Align on movie length. Whether you want a quick 90-minute film or a 3-hour epic, Moovy enforces the group limit.",
+    },
+    {
+      image: "/moovy/9.jpg",
+      title: "Vibe-First Mood Palette",
+      desc: "Select the feeling you want tonight. We translate 'Cozy Chill' or 'Mind Bender' into exact recommendations.",
+    },
+    {
+      image: "/moovy/10.jpg",
+      title: "Strict Veto Filter (Hard Nos)",
+      desc: "Rule out genres you absolutely hate. If one person selects 'No Horror', it's excluded for the entire group.",
+    },
+    {
+      image: "/moovy/11.jpg",
+      title: "Consensus Engine",
+      desc: "Moovy calculates mutual mood overlaps across all members and ranks top candidate films.",
+    },
+    {
+      image: "/moovy/3.jpg",
       title: "Swipe & Vote",
       desc: "Rate the top recommendations in a quick Tinder-style interface to fine-tune the absolute best match.",
     },
     {
-      image: "/moovy/8.jpg",
-      title: "The Ultimate Match",
+      image: "/moovy/4.jpg",
+      title: "The Perfect Screening Match",
       desc: "Get your matched film! Moovy displays the movie with a detailed breakdown explaining why it fits everyone's mood.",
     },
   ];
@@ -90,7 +90,7 @@ export default function PhoneMockup() {
     <div className="flex flex-col lg:flex-row items-center justify-center gap-12 lg:gap-20 w-full py-8">
       {/* Interactive Description Box (Left) */}
       <div className="w-full lg:w-1/2 flex flex-col justify-center order-2 lg:order-1">
-        <span className="text-xs font-semibold text-moovy-amber uppercase tracking-widest mb-3 block">
+        <span className="text-xs font-bold text-white/50 uppercase tracking-[3px] mb-3 block">
           App Walkthrough
         </span>
 
@@ -103,10 +103,10 @@ export default function PhoneMockup() {
               exit={{ opacity: 0, x: 10 }}
               transition={{ duration: 0.25 }}
             >
-              <h4 className="font-display font-bold text-2xl md:text-3xl text-moovy-ink mb-4">
+              <h4 className="font-display font-bold text-2xl md:text-3xl text-white mb-4">
                 {screens[activeIndex].title}
               </h4>
-              <p className="text-moovy-ink-dim text-base md:text-lg leading-relaxed">
+              <p className="text-white/70 text-base md:text-lg leading-relaxed">
                 {screens[activeIndex].desc}
               </p>
             </motion.div>
@@ -118,14 +118,14 @@ export default function PhoneMockup() {
           <div className="flex items-center gap-2">
             <button
               onClick={handlePrev}
-              className="p-3 rounded-full border border-moovy-line hover:border-moovy-amber text-moovy-ink-dim hover:text-moovy-amber-bright transition-all bg-moovy-card/30"
+              className="p-3 rounded-full border border-white/10 hover:border-white/40 text-white/70 hover:text-white transition-all bg-white/5"
               aria-label="Previous screen"
             >
               <ChevronLeft size={18} />
             </button>
             <button
               onClick={handleNext}
-              className="p-3 rounded-full border border-moovy-line hover:border-moovy-amber text-moovy-ink-dim hover:text-moovy-amber-bright transition-all bg-moovy-card/30"
+              className="p-3 rounded-full border border-white/10 hover:border-white/40 text-white/70 hover:text-white transition-all bg-white/5"
               aria-label="Next screen"
             >
               <ChevronRight size={18} />
@@ -134,7 +134,7 @@ export default function PhoneMockup() {
 
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-medium border border-moovy-line hover:border-moovy-amber text-moovy-ink-dim hover:text-moovy-amber-bright bg-moovy-card/25 transition-all"
+            className="flex items-center gap-1.5 px-4 py-2.5 rounded-full text-xs font-semibold border border-white/10 hover:border-white/30 text-white/70 hover:text-white bg-white/5 transition-all"
           >
             {isPlaying ? (
               <>
@@ -157,8 +157,8 @@ export default function PhoneMockup() {
               key={idx}
               onClick={() => selectScreen(idx)}
               className={`relative aspect-[9/16] rounded-md overflow-hidden border transition-all duration-200 ${activeIndex === idx
-                ? "border-moovy-amber ring-2 ring-moovy-amber/20 scale-105"
-                : "border-moovy-line opacity-50 hover:opacity-85 hover:scale-102"
+                ? "border-white ring-2 ring-white/30 scale-105"
+                : "border-white/10 opacity-40 hover:opacity-85"
                 }`}
             >
               <Image
@@ -175,13 +175,10 @@ export default function PhoneMockup() {
 
       {/* Phone Frame Mockup (Right) */}
       <div className="w-full max-w-[310px] md:max-w-[330px] lg:w-1/2 flex justify-center order-1 lg:order-2">
-        <div className="relative w-full aspect-[1/2] rounded-[48px] bg-neutral-900 p-1 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.85)] border-4 border-neutral-800 ring-1 ring-neutral-700/50">
-
-
-          {/* Internal Content screen container */}
-          <div className="relative w-full h-full rounded-[38px] overflow-hidden bg-black border border-neutral-950">
+        <div className="relative w-full aspect-[1/2] rounded-[48px] bg-black p-1.5 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.9)] border-4 border-white/10 ring-1 ring-white/5">
+          <div className="relative w-full h-full rounded-[38px] overflow-hidden bg-[#050210] border border-white/5">
             {/* Screen Top Status bar mock */}
-            <div className="h-5 bg-gradient-to-b from-black/60 to-transparent z-20 px-6 flex justify-between items-center text-[10px] font-medium text-white/80">
+            <div className="h-5 bg-gradient-to-b from-black/80 to-transparent z-20 px-6 flex justify-between items-center text-[10px] font-medium text-white/70">
               <span>9:41</span>
               <div className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-white/70"></span>
@@ -211,9 +208,6 @@ export default function PhoneMockup() {
                 </motion.div>
               </AnimatePresence>
             </div>
-
-            {/* Ambient inner glow */}
-            <div className="absolute inset-0 pointer-events-none border border-white/5 rounded-[38px] z-20"></div>
           </div>
         </div>
       </div>

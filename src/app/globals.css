@@ -1,34 +1,44 @@
 @import "tailwindcss";
 
 @theme {
-  --color-moovy-bg: #0A050E;
-  --color-moovy-bg-soft: #140C1A;
-  --color-moovy-card: #1E1226;
-  --color-moovy-line: rgba(242, 240, 225, 0.08);
-  --color-moovy-ink: #F2F0E1;
-  --color-moovy-ink-dim: #B2ADA0;
-  --color-moovy-ink-faint: #736D62;
-  --color-moovy-amber: #E08451;
-  --color-moovy-amber-bright: #FFA676;
-  --color-moovy-amber-dim: #6E3821;
-  --color-moovy-green: #8FB996;
+  --color-moovy-bg: #050210;
+  --color-moovy-bg-dark: #030108;
+  --color-moovy-card: #0d0b1a;
+  --color-moovy-card-active: #1a1830;
+  --color-moovy-line: rgba(255, 255, 255, 0.08);
+  --color-moovy-ink: #ffffff;
+  --color-moovy-ink-dim: #d0d0dd;
+  --color-moovy-ink-muted: #a0a0b0;
+  --color-moovy-ink-faint: rgba(255, 255, 255, 0.4);
+  --color-moovy-accent: #b4b4b4;
+  --color-moovy-accent-dim: #0279b5;
 
-  --font-sans: var(--font-plus-jakarta-sans), sans-serif;
+  /* Vibes colors */
+  --color-vibe-pizza: #60D394;
+  --color-vibe-laugh: #FFD166;
+  --color-vibe-inspiring: #F9A826;
+  --color-vibe-epic: #FF6B35;
+  --color-vibe-date: #EF476F;
+  --color-vibe-deep: #457B9D;
+  --color-vibe-mind: #9B5DE5;
+  --color-vibe-spine: #2D6A4F;
+
+  --font-sans: var(--font-outfit), var(--font-plus-jakarta-sans), sans-serif;
   --font-display: var(--font-outfit), sans-serif;
 }
 
 :root {
-  --moovy-bg: #0A050E;
-  --moovy-bg-soft: #140C1A;
-  --moovy-card: #1E1226;
-  --moovy-line: rgba(242, 240, 225, 0.08);
-  --moovy-ink: #F2F0E1;
-  --moovy-ink-dim: #B2ADA0;
-  --moovy-ink-faint: #736D62;
-  --moovy-amber: #E08451;
-  --moovy-amber-bright: #FFA676;
-  --moovy-amber-dim: #6E3821;
-  --moovy-green: #8FB996;
+  --moovy-bg: #050210;
+  --moovy-bg-dark: #030108;
+  --moovy-card: #0d0b1a;
+  --moovy-card-active: #1a1830;
+  --moovy-line: rgba(255, 255, 255, 0.08);
+  --moovy-ink: #ffffff;
+  --moovy-ink-dim: #d0d0dd;
+  --moovy-ink-muted: #a0a0b0;
+  --moovy-ink-faint: rgba(255, 255, 255, 0.4);
+  --moovy-accent: #b4b4b4;
+  --moovy-accent-dim: #0279b5;
 }
 
 html {
@@ -38,22 +48,23 @@ html {
 
 body {
   color: var(--moovy-ink);
-  font-family: var(--font-plus-jakarta-sans), sans-serif;
+  font-family: var(--font-outfit), var(--font-plus-jakarta-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
   position: relative;
   overflow-x: hidden;
+  background-color: var(--moovy-bg);
 }
 
-/* ambient grain background */
+/* Ambient subtle background grid */
 body::before {
   content: '';
   position: fixed;
   inset: 0;
   z-index: 1;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
-  background-size: 3px 3px;
-  opacity: 0.6;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+  background-size: 4px 4px;
+  opacity: 0.5;
 }
 
 /* Custom styles for animations & marquee */
@@ -61,7 +72,6 @@ body::before {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
@@ -73,19 +83,19 @@ body::before {
   animation: scrollMarquee 35s linear infinite;
 }
 
-/* Glassmorphism custom classes */
+/* Glassmorphism custom classes matching moovy-front */
 .glass-panel {
-  background: rgba(30, 18, 38, 0.6);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: rgba(13, 11, 26, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--moovy-line);
 }
 
 .glass-nav {
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  background: linear-gradient(to bottom, rgba(10, 5, 14, 0.9), rgba(10, 5, 14, 0));
-  border-bottom: 1px solid rgba(242, 240, 225, 0.03);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  background: linear-gradient(to bottom, rgba(5, 2, 16, 0.92), rgba(5, 2, 16, 0));
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* Custom scrollbar */
@@ -99,10 +109,10 @@ body::before {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--moovy-card);
+  background: var(--moovy-card-active);
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--moovy-amber-dim);
+  background: var(--moovy-accent-dim);
 }

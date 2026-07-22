@@ -2,7 +2,6 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -21,7 +20,6 @@ export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // Scroll detection for sticky headers styling
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 20) {
@@ -34,7 +32,6 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Prevent scroll when mobile menu is open
   useEffect(() => {
     if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -46,7 +43,6 @@ export default function Navbar() {
     };
   }, [mobileMenuOpen]);
 
-  // Close mobile menu on route change
   useEffect(() => {
     setMobileMenuOpen(false);
   }, [pathname]);
@@ -61,24 +57,15 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-            ? "bg-moovy-bg/85 backdrop-blur-md py-4 border-b border-moovy-line"
-            : "bg-gradient-to-bottom from-moovy-bg/90 to-transparent py-6 border-b border-transparent"
+          ? "bg-[#050210]/85 backdrop-blur-md py-4 border-b border-white/10"
+          : "bg-gradient-to-b from-[#050210]/90 via-[#050210]/40 to-transparent py-6 border-b border-white/0"
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Logo & Brand */}
-          <Link href="/" className="flex items-center gap-2.5 group relative z-50">
-            <div className="relative w-8 h-8 rounded-lg overflow-hidden border border-moovy-line group-hover:border-moovy-amber transition-colors">
-              <Image
-                src="/moovy/mnlogo3.jpg"
-                alt="Moovy Logo"
-                fill
-                className="object-cover"
-                sizes="32px"
-              />
-            </div>
-            <span className="font-display font-bold text-xl tracking-tight text-moovy-ink group-hover:text-moovy-ink-dim transition-colors">
-              moovy<span className="text-moovy-amber">.</span>
+          {/* Logo & Brand matching moovy-front */}
+          <Link href="/" className="flex items-center gap-2 group relative z-50">
+            <span className="font-display font-bold text-2xl md:text-3xl tracking-tighter text-white group-hover:text-white/80 transition-colors">
+              moovy<span className="text-[#b4b4b4]">®</span>
             </span>
           </Link>
 
@@ -90,7 +77,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`text-sm font-medium transition-colors hover:text-moovy-amber-bright ${isActive ? "text-moovy-amber font-semibold" : "text-moovy-ink-dim"
+                  className={`text-sm font-medium transition-colors hover:text-white ${isActive ? "text-white font-semibold border-b border-white/50" : "text-white/60"
                     }`}
                 >
                   {link.name}
@@ -103,15 +90,15 @@ export default function Navbar() {
           <div className="flex items-center gap-4">
             <Link
               href="/#cta"
-              className="hidden sm:inline-flex text-xs font-semibold text-moovy-ink border border-moovy-line hover:border-moovy-amber hover:text-moovy-amber-bright px-5 py-2.5 rounded-full transition-all duration-200"
+              className="hidden sm:inline-flex text-xs font-bold uppercase tracking-wider text-white/90 border border-white/20 hover:border-white/60 hover:text-white px-5 py-2.5 rounded-full transition-all duration-200 bg-white/5 hover:bg-white/10"
             >
-              Get early access
+              Get Early Access
             </Link>
 
-            {/* Interactive SVG Hamburger / X Button */}
+            {/* Hamburger Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="md:hidden p-2 text-moovy-ink-dim hover:text-moovy-ink transition-colors focus:outline-none relative z-50 cursor-pointer"
+              className="md:hidden p-2 text-white/70 hover:text-white transition-colors focus:outline-none relative z-50 cursor-pointer"
               aria-label="Toggle menu"
             >
               <svg width="20" height="20" viewBox="0 0 23 23" className="w-5 h-5">
@@ -146,7 +133,7 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* Full Screen Animated Mobile Menu */}
+      {/* Full Screen Mobile Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
@@ -154,13 +141,10 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-40 md:hidden bg-moovy-bg/95 backdrop-blur-2xl flex flex-col justify-between pt-32 pb-10 px-8"
+            className="fixed inset-0 z-40 md:hidden bg-[#050210]/95 backdrop-blur-2xl flex flex-col justify-between pt-32 pb-10 px-8"
           >
-            {/* Ambient visual background glow bubbles */}
-            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 h-72 bg-moovy-amber/5 rounded-full blur-3xl pointer-events-none" />
-            <div className="absolute bottom-1/4 left-1/3 w-48 h-48 bg-purple-950/10 rounded-full blur-3xl pointer-events-none" />
+            <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-72 h-72 bg-[#0279b5]/10 rounded-full blur-3xl pointer-events-none" />
 
-            {/* Staggered Navigation Links */}
             <motion.div
               variants={{
                 hidden: { opacity: 0 },
@@ -189,7 +173,7 @@ export default function Navbar() {
                   >
                     <Link
                       href={link.href}
-                      className={`text-3xl font-display font-bold tracking-tight transition-colors hover:text-moovy-amber-bright ${isActive ? "text-moovy-amber" : "text-moovy-ink"
+                      className={`text-3xl font-display font-bold tracking-tight transition-colors ${isActive ? "text-white" : "text-white/60 hover:text-white"
                         }`}
                     >
                       {link.name}
@@ -199,7 +183,6 @@ export default function Navbar() {
               })}
             </motion.div>
 
-            {/* Bottom Actions and Info Panel */}
             <motion.div
               initial={{ y: 25, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -209,14 +192,14 @@ export default function Navbar() {
               <Link
                 href="/#cta"
                 onClick={() => setMobileMenuOpen(false)}
-                className="w-full text-center text-sm font-semibold text-moovy-bg bg-moovy-amber hover:bg-moovy-amber-bright py-4 rounded-full transition-all duration-300 shadow-lg shadow-moovy-amber/20 font-display cursor-pointer"
+                className="w-full text-center text-sm font-bold uppercase tracking-wider text-black bg-white hover:bg-white/90 py-4 rounded-full transition-all duration-300 shadow-lg font-display cursor-pointer"
               >
-                Get early access
+                Get Early Access
               </Link>
 
-              <div className="flex justify-between items-center text-[10px] text-moovy-ink-faint tracking-widest uppercase border-t border-moovy-line/40 pt-6">
-                <span>Moovy Private Beta</span>
-                <span>v0.1.2</span>
+              <div className="flex justify-between items-center text-[10px] text-white/30 tracking-widest uppercase border-t border-white/10 pt-6">
+                <span>moovy alpha*</span>
+                <span>© 2026</span>
               </div>
             </motion.div>
           </motion.div>

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { Maximize2, X, ChevronLeft, ChevronRight, LayoutGrid, CheckCircle } from "lucide-react";
+import { Maximize2, X, ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 
 interface FeatureScreen {
   id: number;
@@ -22,7 +22,7 @@ export default function Features() {
   const featureScreens: FeatureScreen[] = [
     {
       id: 0,
-      image: "/moovy/0.jpg",
+      image: "/moovy/1.jpg",
       category: "setup",
       title: "Interactive Sessions",
       tagline: "Create temporary lobbies with a click",
@@ -31,7 +31,7 @@ export default function Features() {
     },
     {
       id: 1,
-      image: "/moovy/1.jpg",
+      image: "/moovy/12.jpg",
       category: "setup",
       title: "Zero-Friction Invites",
       tagline: "Friends join instantly from any browser",
@@ -40,7 +40,7 @@ export default function Features() {
     },
     {
       id: 2,
-      image: "/moovy/2.jpg",
+      image: "/moovy/7.jpg",
       category: "setup",
       title: "Lobby Syncing",
       tagline: "Real-time presence indicator",
@@ -49,34 +49,34 @@ export default function Features() {
     },
     {
       id: 3,
-      image: "/moovy/3.jpg",
+      image: "/moovy/13.jpg",
       category: "filters",
       title: "Runtime Boundary Filter",
       tagline: "Align on duration in advance",
-      description: "Set an average duration. No more complaining that a movie is too long when people are tired.",
+      description: "Set an average duration limit. No more complaining that a movie is too long when people are tired.",
       points: ["Adjustable length sliders", "Exclude films beyond limits", "Averaged runtime calculations"],
     },
     {
       id: 4,
-      image: "/moovy/4.jpg",
+      image: "/moovy/9.jpg",
       category: "filters",
       title: "Vibe-First Preferences",
       tagline: "Say goodbye to standard genres",
       description: "Instead of choosing Action or Comedy, pick what you feel. Moovy handles the genre mapping automatically.",
-      points: ["9 curated mood profiles", "Multi-select option mapping", "Personalized vibe weighting"],
+      points: ["12 curated mood profiles", "Multi-select option mapping", "Personalized vibe weighting"],
     },
     {
       id: 5,
-      image: "/moovy/5.jpg",
+      image: "/moovy/10.jpg",
       category: "filters",
-      title: "Strict Veto Filters",
+      title: "Strict Veto Filters (Hard Nos)",
       tagline: "One veto rules them all",
       description: "Prevent horror films, documentaries, or romance movies. If anyone vetos a category, the filter applies to the entire session.",
       points: ["Absolute negative filters", "Prevent unwanted genres", "Respected boundaries"],
     },
     {
       id: 6,
-      image: "/moovy/6.jpg",
+      image: "/moovy/11.jpg",
       category: "consensus",
       title: "Consensus Algorithm",
       tagline: "Mathematical mood overlap calculations",
@@ -85,20 +85,20 @@ export default function Features() {
     },
     {
       id: 7,
-      image: "/moovy/7.jpg",
+      image: "/moovy/8.jpg",
       category: "consensus",
       title: "Swipe & Fine-Tune",
       tagline: "Shortlist voting card swipes",
-      description: "Vote on the top three recommendations in a fast interface. Your votes tell us which matched film is the perfect fit.",
+      description: "Vote on the top recommendations in a fast interface. Your votes tell us which matched film is the perfect fit.",
       points: ["Simple Yes/No voting cards", "Pre-calculated best fits", "Instant vote accumulation"],
     },
     {
       id: 8,
-      image: "/moovy/8.jpg",
+      image: "/moovy/4.jpg",
       category: "consensus",
-      title: "The Perfect Fit",
+      title: "The Perfect Screening Fit",
       tagline: "Matched results with full transparency",
-      description: "The movie matches display with detailed explanations of why the selection satisfies Marek, Zuza, and Jan.",
+      description: "The movie matches display with detailed explanations of why the selection satisfies everyone in the group.",
       points: ["Explanations of mood coverage", "Streaming provider links", "Group satisfaction summaries"],
     },
   ];
@@ -128,16 +128,16 @@ export default function Features() {
   };
 
   return (
-    <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto">
+    <div className="py-24 px-6 md:px-12 max-w-7xl mx-auto text-white">
       {/* Page Header */}
       <div className="text-center mt-12 mb-16">
-        <span className="text-xs font-semibold text-moovy-amber uppercase tracking-widest block mb-3">
+        <span className="text-xs font-bold text-white/50 uppercase tracking-[3px] block mb-3">
           App Walkthrough
         </span>
-        <h1 className="font-display font-bold text-4xl md:text-6xl text-moovy-ink tracking-tight mb-6">
+        <h1 className="font-display font-bold text-4xl md:text-6xl text-white tracking-tight mb-6">
           Interface Showcase
         </h1>
-        <p className="text-moovy-ink-dim max-w-xl mx-auto text-base md:text-lg leading-relaxed">
+        <p className="text-white/70 max-w-xl mx-auto text-base md:text-lg leading-relaxed">
           Take a look inside the Moovy screens. See how easily you can customize your lobbies, cast your votes, and get immediate matches.
         </p>
       </div>
@@ -148,9 +148,9 @@ export default function Features() {
           <button
             key={tab}
             onClick={() => setActiveTab(tab)}
-            className={`text-xs md:text-sm font-semibold uppercase tracking-wider px-6 py-3 rounded-full border transition-all ${activeTab === tab
-              ? "bg-moovy-amber text-moovy-bg border-moovy-amber shadow-lg shadow-moovy-amber/15"
-              : "bg-moovy-card/30 text-moovy-ink-dim border-moovy-line hover:border-moovy-amber/40 hover:text-moovy-ink"
+            className={`text-xs md:text-sm font-bold uppercase tracking-wider px-6 py-3 rounded-full border transition-all cursor-pointer ${activeTab === tab
+              ? "bg-white text-black border-white shadow-lg"
+              : "bg-white/5 text-white/70 border-white/10 hover:border-white/30 hover:text-white"
               }`}
           >
             {tab === "all" ? "All Screens" : tab}
@@ -172,12 +172,12 @@ export default function Features() {
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.3 }}
-              className="bg-moovy-card/60 border border-moovy-line rounded-2xl overflow-hidden flex flex-col hover:border-moovy-amber/35 group shadow-lg"
+              className="bg-[#0d0b1a]/70 border border-white/10 rounded-2xl overflow-hidden flex flex-col hover:border-white/30 group shadow-xl"
             >
               {/* Image box */}
               <div
                 onClick={() => openLightbox(screen.id)}
-                className="relative aspect-[9/14] bg-neutral-950 overflow-hidden cursor-pointer"
+                className="relative aspect-[9/14] bg-black overflow-hidden cursor-pointer"
               >
                 <Image
                   src={screen.image}
@@ -188,35 +188,34 @@ export default function Features() {
                 />
 
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-moovy-bg/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300 z-10">
-                  <div className="p-3.5 bg-moovy-amber text-moovy-bg rounded-full shadow-lg scale-90 group-hover:scale-100 transition-transform duration-300">
+                <div className="absolute inset-0 bg-[#050210]/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity duration-300 z-10">
+                  <div className="p-3.5 bg-white text-black rounded-full shadow-lg scale-90 group-hover:scale-100 transition-transform duration-300">
                     <Maximize2 size={18} />
                   </div>
                 </div>
 
-                {/* Tag Overlay */}
-                <span className="absolute top-4 left-4 z-20 text-[9px] font-bold tracking-widest uppercase px-2.5 py-1 rounded bg-moovy-bg-soft/90 border border-moovy-line text-moovy-amber">
+                <span className="absolute top-4 left-4 z-20 text-[9px] font-bold tracking-widest uppercase px-2.5 py-1 rounded bg-[#030108]/90 border border-white/10 text-white/80">
                   {screen.category}
                 </span>
               </div>
 
               {/* Text content */}
               <div className="p-6 flex-grow flex flex-col">
-                <span className="text-[10px] text-moovy-ink-faint font-bold uppercase tracking-wider mb-1 block">
+                <span className="text-[10px] text-white/40 font-bold uppercase tracking-wider mb-1 block">
                   {screen.tagline}
                 </span>
-                <h3 className="font-display font-bold text-lg text-moovy-ink mb-3">
+                <h3 className="font-display font-bold text-lg text-white mb-3">
                   {screen.title}
                 </h3>
-                <p className="text-xs text-moovy-ink-dim leading-relaxed mb-5">
+                <p className="text-xs text-white/60 leading-relaxed mb-5">
                   {screen.description}
                 </p>
 
                 {/* Bullet points */}
-                <div className="mt-auto space-y-2 border-t border-moovy-line/40 pt-4">
+                <div className="mt-auto space-y-2 border-t border-white/10 pt-4">
                   {screen.points.map((point, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-[11px] text-moovy-ink-dim">
-                      <CheckCircle size={12} className="text-moovy-amber shrink-0" />
+                    <div key={idx} className="flex items-center gap-2 text-[11px] text-white/70">
+                      <CheckCircle size={12} className="text-[#0279b5] shrink-0" />
                       <span>{point}</span>
                     </div>
                   ))}
@@ -235,17 +234,15 @@ export default function Features() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={closeLightbox}
-            className="fixed inset-0 z-50 bg-moovy-bg/60 backdrop-blur-md flex flex-col justify-center items-center p-4 select-none"
+            className="fixed inset-0 z-50 bg-[#050210]/80 backdrop-blur-md flex flex-col justify-center items-center p-4 select-none"
           >
-            {/* Close button */}
             <button
               onClick={closeLightbox}
-              className="absolute top-6 right-6 p-3 bg-moovy-card/85 text-moovy-ink border border-moovy-line rounded-full hover:border-moovy-amber hover:text-moovy-amber-bright transition-colors"
+              className="absolute top-6 right-6 p-3 bg-[#0d0b1a] text-white border border-white/20 rounded-full hover:border-white transition-colors"
             >
               <X size={20} />
             </button>
 
-            {/* Slider container */}
             <div className="relative max-w-lg w-full aspect-[9/18] md:aspect-[9/17.5] flex items-center justify-center p-2">
               <motion.div
                 key={lightboxIndex}
@@ -253,7 +250,7 @@ export default function Features() {
                 animate={{ scale: 1, opacity: 1 }}
                 exit={{ scale: 0.95, opacity: 0 }}
                 transition={{ duration: 0.25 }}
-                className="relative w-full h-full rounded-2xl overflow-hidden border border-moovy-line"
+                className="relative w-full h-full rounded-2xl overflow-hidden border border-white/20"
                 onClick={(e) => e.stopPropagation()}
               >
                 <Image
@@ -266,32 +263,30 @@ export default function Features() {
                 />
               </motion.div>
 
-              {/* Navigation Arrows */}
               <button
                 onClick={handlePrev}
-                className="absolute left-[-20px] md:left-[-70px] p-3 rounded-full border border-moovy-line bg-moovy-card/80 text-moovy-ink-dim hover:text-moovy-amber-bright hover:border-moovy-amber transition-colors"
+                className="absolute left-[-20px] md:left-[-70px] p-3 rounded-full border border-white/20 bg-[#0d0b1a]/90 text-white hover:border-white transition-colors"
                 aria-label="Previous image"
               >
                 <ChevronLeft size={24} />
               </button>
               <button
                 onClick={handleNext}
-                className="absolute right-[-20px] md:right-[-70px] p-3 rounded-full border border-moovy-line bg-moovy-card/80 text-moovy-ink-dim hover:text-moovy-amber-bright hover:border-moovy-amber transition-colors"
+                className="absolute right-[-20px] md:right-[-70px] p-3 rounded-full border border-white/20 bg-[#0d0b1a]/90 text-white hover:border-white transition-colors"
                 aria-label="Next image"
               >
                 <ChevronRight size={24} />
               </button>
             </div>
 
-            {/* Details Footer */}
             <div
               className="mt-6 text-center max-w-md"
               onClick={(e) => e.stopPropagation()}
             >
-              <h4 className="font-display font-bold text-lg text-moovy-ink mb-1">
+              <h4 className="font-display font-bold text-lg text-white mb-1">
                 {featureScreens[lightboxIndex].title}
               </h4>
-              <p className="text-xs text-moovy-ink-dim leading-relaxed">
+              <p className="text-xs text-white/70 leading-relaxed">
                 {featureScreens[lightboxIndex].description}
               </p>
             </div>

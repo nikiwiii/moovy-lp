@@ -3,23 +3,23 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Info, CheckCircle, Mail, Loader2, BicepsFlexed } from "lucide-react";
+import { ArrowRight, Info, CheckCircle, Mail, Loader2, Sparkles, Search, Plus, UserRound, Handshake } from "lucide-react";
 import PhoneMockup from "@/components/PhoneMockup";
 import VibesSection from "@/components/VibesSection";
 import SpotlightCard from "@/components/SpotlightCard";
 
 const steps = [
   {
-    title: "Start a session",
-    description: "Send a link. Friends join instantly — no app, no account, no sign-up required.",
+    title: "1. Start a Session",
+    description: "Send a session link. Friends join instantly from any browser — no account or app download required.",
   },
   {
-    title: "Pick your mood",
-    description: "Everyone taps the vibes they're feeling, sets a runtime, and rules out anything they hate.",
+    title: "2. Pick Your Mood & Rules",
+    description: "Everyone sets their vibe (Cozy Chill, Mind Bender, Date Night), runtime limit, and vetoes any unwanted genres.",
   },
   {
-    title: "Get your match",
-    description: "Moovy reads the whole group and returns three films — with a reason the pick actually works for you.",
+    title: "3. Get Your Perfect Fit",
+    description: "Moovy calculates group consensus and returns matched movies with a clear breakdown explaining why it fits everyone.",
   },
 ];
 
@@ -37,18 +37,17 @@ export default function Home() {
     }
 
     setStatus("loading");
-    // Simulate API call
     setTimeout(() => {
       setStatus("success");
       setEmail("");
-    }, 1500);
+    }, 1200);
   };
 
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
-      transition: { staggerChildren: 0.15 },
+      transition: { staggerChildren: 0.12 },
     },
   };
 
@@ -67,13 +66,13 @@ export default function Home() {
     "Three people, three different moods",
     "The group chat that never decides",
     "Someone always vetoes the pick",
+    "we'll find your perfect screening",
   ];
 
   return (
-    <div className="relative overflow-hidden w-full">
+    <div className="relative overflow-hidden w-full text-white">
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[92svh] flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 max-w-5xl mx-auto z-10">
-        {/* Radial glow background */}
+      <section className="relative min-h-[90svh] flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 max-w-5xl mx-auto z-10">
         <motion.div
           variants={containerVariants}
           initial="hidden"
@@ -81,65 +80,67 @@ export default function Home() {
           className="flex flex-col items-center"
         >
 
-          {/* Heading */}
+          {/* Heading matching moovy-front */}
           <motion.h1
             variants={itemVariants}
-            className="font-display font-bold text-4xl sm:text-6xl md:text-8xl tracking-tight leading-[0.95] text-moovy-ink max-w-4xl"
+            className="font-display font-bold text-4xl sm:text-6xl md:text-8xl tracking-tight leading-[0.95] text-white max-w-4xl"
           >
-            Stop scrolling. <br />
-            Start <span className="italic text-moovy-amber-bright font-light">watching.</span>
+            welcome to <br />
+            <span className="text-white">moovy</span>
+            <span className="text-[#b4b4b4]">®</span>
           </motion.h1>
 
-          {/* Description */}
           <motion.p
             variants={itemVariants}
-            className="mt-6 text-base sm:text-lg md:text-xl text-moovy-ink-dim max-w-xl leading-relaxed font-normal"
+            className="mt-6 text-base sm:text-lg md:text-xl text-white/70 max-w-xl leading-relaxed font-normal"
           >
-            Everyone picks their mood. Moovy finds the one movie your whole group will actually agree on — in under two minutes.
+            Stop scrolling. Start watching. Everyone picks their mood, and Moovy finds the one movie your whole group agrees on.
           </motion.p>
 
-          {/* Actions */}
+          <ViewLineDivider />
+
+          {/* Interactive Feature Trigger Badges */}
           <motion.div
             variants={itemVariants}
-            className="mt-10 flex flex-col sm:flex-row gap-4 items-center justify-center w-full max-w-sm sm:max-w-none"
+            className="mt-10 flex flex-wrap gap-6 items-center justify-center"
           >
             <Link
               href="#cta"
-              className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-moovy-amber hover:bg-moovy-amber-bright text-moovy-bg font-semibold text-sm px-8 py-4 rounded-full transition-all duration-200 shadow-lg shadow-moovy-amber/20 hover:shadow-moovy-amber/30 hover:-translate-y-0.5"
+              className="inline-flex items-center gap-3 bg-white text-black hover:bg-white/90 font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-all duration-200 shadow-xl hover:-translate-y-0.5"
             >
-              <span>Join the waitlist</span>
-              <ArrowRight size={16} />
+              <Search size={18} />
+              <span>Find a Movie</span>
             </Link>
+
             <Link
               href="#how"
-              className="w-full sm:w-auto text-sm font-medium text-moovy-ink-dim hover:text-moovy-ink border-b border-transparent hover:border-moovy-ink-faint py-3 px-4 transition-all duration-200"
+              className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-white border border-white/15 hover:border-white/40 px-6 py-4 rounded-full transition-all duration-200 bg-white/5"
             >
-              See how it works
+              <span>See how it works</span>
+              <ArrowRight size={16} />
             </Link>
           </motion.div>
 
-          {/* Bottom info */}
           <motion.div
             variants={itemVariants}
-            className="mt-6 flex items-center gap-1.5 text-xs text-moovy-ink-faint"
+            className="mt-8 flex items-center gap-2 text-xs text-white/40 tracking-wider"
           >
-            <Info size={12} />
-            <span>No account needed to join a session</span>
+            <Info size={13} />
+            <span>we&apos;ll find your perfect screening</span>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* ===== PROBLEM MARQUEE ===== */}
-      <section className="border-y border-moovy-line bg-moovy-bg-soft/40 py-6 overflow-hidden w-full">
+      {/* ===== MARQUEE ===== */}
+      <section className="border-y border-white/10 bg-[#030108]/60 py-5 overflow-hidden w-full backdrop-blur-sm">
         <div className="flex w-[200%] animate-marquee select-none">
-          {/* Double text block for infinite scrolling */}
           {[...marqueeText, ...marqueeText].map((text, idx) => (
             <span
               key={idx}
-              className="font-display font-light text-base md:text-lg text-moovy-ink-faint mr-16 flex items-center shrink-0 gap-16"
+              className="font-display font-light text-sm md:text-base text-white/40 mr-16 flex items-center shrink-0 gap-16 uppercase tracking-wider"
             >
-              <span className="italic">{text}</span>
-              <span className="text-moovy-amber/30 text-sm font-normal">·</span>
+              <span>{text}</span>
+              <span className="text-white/20 font-bold">·</span>
             </span>
           ))}
         </div>
@@ -154,11 +155,11 @@ export default function Home() {
           transition={{ duration: 0.6 }}
           className="text-center mb-20"
         >
-          <span className="text-xs font-semibold text-moovy-amber uppercase tracking-widest block mb-3">
-            How it works
+          <span className="text-xs font-bold text-white/40 uppercase tracking-[3px] block mb-3">
+            How It Works
           </span>
-          <h2 className="font-display font-bold text-3xl md:text-5xl text-moovy-ink leading-tight">
-            From group chat to <span className="italic text-moovy-amber-bright">movie night</span>, in three steps
+          <h2 className="font-display font-bold text-3xl md:text-5xl text-white leading-tight">
+            From group chat to <span className="text-white/80">movie night</span> in three steps
           </h2>
         </motion.div>
 
@@ -174,14 +175,14 @@ export default function Home() {
               className="h-full"
             >
               <SpotlightCard
-                className="h-full flex flex-col gap-1 bg-moovy-card/20 border border-moovy-line hover:border-moovy-amber/25 transition-all duration-300 flex flex-col items-center md:items-start text-center md:text-left"
-                spotlightColor="rgba(232, 146, 74, 0.12)"
+                className="h-full flex flex-col gap-2 bg-[#0d0b1a]/60 border border-white/10 hover:border-white/25 transition-all duration-300 p-8 rounded-[28px] items-center md:items-start text-center md:text-left"
+                spotlightColor="rgba(255, 255, 255, 0.08)"
               >
-                <div className="font-display mb-3 font-bold text-lg w-14 h-14 rounded-full bg-moovy-bg border border-moovy-line flex items-center justify-center text-moovy-amber-bright shadow-md">
+                <div className="font-display mb-4 font-bold text-lg w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white">
                   {i + 1}
                 </div>
-                <h3 className="font-display font-bold text-xl text-moovy-ink">{step.title}</h3>
-                <p className="text-sm text-moovy-ink-dim leading-relaxed">
+                <h3 className="font-display font-bold text-xl text-white mb-1">{step.title}</h3>
+                <p className="text-sm text-white/60 leading-relaxed">
                   {step.description}
                 </p>
               </SpotlightCard>
@@ -191,7 +192,7 @@ export default function Home() {
       </section>
 
       {/* ===== INTERACTIVE DEMO (PHONE SLIDER) ===== */}
-      <section className="py-8 md:py-20 bg-moovy-bg-soft/40 border-y border-moovy-line/60">
+      <section className="py-12 md:py-20 bg-[#030108]/50 border-y border-white/10">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           <PhoneMockup />
         </div>
@@ -201,10 +202,7 @@ export default function Home() {
       <VibesSection />
 
       {/* ===== CTA WAITLIST ===== */}
-      <section id="cta" className="py-32 px-6 md:px-12 text-center relative border-t border-moovy-line scroll-mt-10 overflow-hidden w-full">
-        {/* Glow effect */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[700px] h-[350px] bg-radial from-moovy-amber/8 to-transparent blur-3xl pointer-events-none" />
-
+      <section id="cta" className="py-32 px-6 md:px-12 text-center relative border-t border-white/10 scroll-mt-10 overflow-hidden w-full">
         <div className="max-w-3xl mx-auto relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -212,12 +210,12 @@ export default function Home() {
             viewport={{ once: true }}
             transition={{ duration: 0.7 }}
           >
-            <h2 className="font-display font-bold text-3xl sm:text-5xl text-moovy-ink leading-tight mb-6">
+            <h2 className="font-display font-bold text-3xl sm:text-5xl text-white leading-tight mb-6">
               Your next movie night <br />
-              is <span className="italic text-moovy-amber-bright">one link</span> away.
+              is <span className="text-white/80">one link</span> away.
             </h2>
-            <p className="text-moovy-ink-dim text-sm sm:text-base max-w-md mx-auto mb-10 leading-relaxed">
-              We&apos;re testing with small groups first. Sign up for early access below to host your first discussion-free movie session.
+            <p className="text-white/60 text-sm sm:text-base max-w-md mx-auto mb-10 leading-relaxed">
+              We&apos;re testing moovy® with early access pools. Sign up below to host your first discussion-free movie session.
             </p>
 
             {/* Waitlist Form */}
@@ -226,18 +224,18 @@ export default function Home() {
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="bg-moovy-card border border-moovy-green/30 p-8 rounded-2xl flex flex-col items-center"
+                  className="bg-[#0d0b1a] border border-white/20 p-8 rounded-2xl flex flex-col items-center"
                 >
-                  <CheckCircle className="w-12 h-12 text-moovy-green mb-4" />
-                  <h4 className="font-display font-semibold text-lg text-moovy-ink mb-2">You&apos;re on the list!</h4>
-                  <p className="text-xs text-moovy-ink-dim leading-relaxed">
-                    Thank you for joining. We will email you an invite token as soon as a slot opens up in the private test pool.
+                  <CheckCircle className="w-12 h-12 text-[#60D394] mb-4" />
+                  <h4 className="font-display font-semibold text-lg text-white mb-2">You&apos;re on the list!</h4>
+                  <p className="text-xs text-white/60 leading-relaxed">
+                    Thank you for joining. We will email you an invite link as soon as an early access slot opens.
                   </p>
                 </motion.div>
               ) : (
                 <form onSubmit={handleWaitlistSubmit} className="flex flex-col gap-3">
-                  <div className="relative flex items-center bg-moovy-card border border-moovy-line focus-within:border-moovy-amber rounded-full p-1.5 transition-colors">
-                    <div className="pl-4 text-moovy-ink-faint">
+                  <div className="relative flex items-center bg-[#0d0b1a] border border-white/15 focus-within:border-white/50 rounded-full p-1.5 transition-colors">
+                    <div className="pl-4 text-white/40">
                       <Mail size={16} />
                     </div>
                     <input
@@ -249,17 +247,17 @@ export default function Home() {
                         if (status === "error") setStatus("idle");
                       }}
                       disabled={status === "loading"}
-                      className="bg-transparent text-moovy-ink placeholder:text-moovy-ink-faint w-full px-3 py-3 text-sm focus:outline-none disabled:opacity-50"
+                      className="bg-transparent text-white placeholder:text-white/30 w-full px-3 py-3 text-sm focus:outline-none disabled:opacity-50"
                     />
                     <button
                       type="submit"
                       disabled={status === "loading"}
-                      className="bg-moovy-amber hover:bg-moovy-amber-bright text-moovy-bg font-semibold text-xs px-6 py-3.5 rounded-full transition-colors shrink-0 flex items-center gap-1.5 disabled:opacity-70"
+                      className="bg-white hover:bg-white/90 text-black font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors shrink-0 flex items-center gap-1.5 cursor-pointer disabled:opacity-70"
                     >
                       {status === "loading" ? (
                         <Loader2 className="w-3.5 h-3.5 animate-spin" />
                       ) : (
-                        <span>Join waitlist</span>
+                        <span>Join Waitlist</span>
                       )}
                     </button>
                   </div>
@@ -277,12 +275,16 @@ export default function Home() {
               )}
             </div>
 
-            <div className="mt-8 text-xs text-moovy-ink-faint">
-              Spots are limited. No spam, ever.
+            <div className="mt-8 text-xs text-white/30 uppercase tracking-widest">
+              moovy® © 2026 · early access
             </div>
           </motion.div>
         </div>
       </section>
     </div>
   );
+}
+
+function ViewLineDivider() {
+  return <div className="w-16 h-[1px] bg-white/20 mt-6 mb-2" />;
 }
