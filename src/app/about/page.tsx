@@ -71,21 +71,6 @@ export default function About() {
     }
   };
 
-  const values = [
-    {
-      title: "Frictionless First",
-      desc: "No app downloads, no accounts to register, no passwords to remember. If a tool takes more than 10 seconds to join, groups won't use it. We build for zero friction.",
-    },
-    {
-      title: "Consensus-Driven Models",
-      desc: "Traditional algorithms optimize for individual users. Moovy solves the group negotiation problem by aggregating moods and identifying overlaps that satisfy everyone.",
-    },
-    {
-      title: "Respect for Preferences",
-      desc: "If someone vetos a genre or has already seen a film, their inputs are absolutely respected. Group agreement shouldn't mean forcing anyone to watch what they hate.",
-    },
-  ];
-
   return (
     <div className="py-24 px-6 md:px-12 max-w-5xl mx-auto text-white">
       {/* Page Header */}
@@ -100,46 +85,21 @@ export default function About() {
           Founded to solve a simple problem: the endless debate of what to watch. We build tools that make group decisions effortless.
         </p>
       </div>
-
-      {/* Grid: Mission and Values */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start mb-28">
-        {/* Left: Narrative */}
-        <div className="lg:col-span-6 space-y-6">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-white/60 uppercase tracking-widest">
-            <BicepsFlexed size={14} className="text-[#0279b5]" />
-            <span>The Mission</span>
-          </div>
-          <h2 className="font-display font-bold text-2xl md:text-3xl text-white">
-            Ending the &ldquo;I don&apos;t care, you choose&rdquo; loops.
-          </h2>
-          <p className="text-sm md:text-base text-white/70 leading-relaxed">
-            Every week, millions of groups sit on couches, open streaming apps, and spend 40 minutes scrolling through catalogs only to give up. The issue isn&apos;t a lack of options — it&apos;s the psychological tax of group decision making.
-          </p>
-          <p className="text-sm md:text-base text-white/70 leading-relaxed">
-            Moovy was created as an experiment in group sync. By letting everyone vote on vibes, length, and vetoes simultaneously, we aggregate inputs and return options that represent the group&apos;s combined mood.
-          </p>
-        </div>
-
-        {/* Right: Values */}
-        <div className="lg:col-span-6 space-y-6">
-          {values.map((val, idx) => (
-            <div
-              key={idx}
-              className="bg-[#0d0b1a]/70 border border-white/10 rounded-2xl p-6 hover:border-white/25 transition-colors"
-            >
-              <h3 className="font-display font-bold text-base text-white mb-2">
-                {val.title}
-              </h3>
-              <p className="text-xs text-white/60 leading-relaxed">
-                {val.desc}
-              </p>
-            </div>
-          ))}
-        </div>
+      {/* Left: Narrative */}
+      <div className="max-w-2xl mx-auto text-center space-y-6">
+        <h2 className="font-display font-bold text-2xl md:text-3xl text-white">
+          Ending the &ldquo;I don&apos;t care, you choose&rdquo; loops.
+        </h2>
+        <p className="text-sm md:text-base text-white/70 leading-relaxed">
+          Every week, millions of groups sit on couches, open streaming apps, and spend 40 minutes scrolling through catalogs only to give up. The issue isn&apos;t a lack of options — it&apos;s the psychological tax of group decision making.
+        </p>
+        <p className="text-sm md:text-base text-white/70 leading-relaxed">
+          Moovy was created as an experiment in group sync. By letting everyone vote on vibes, length, and vetoes simultaneously, we aggregate inputs and return options that represent the group&apos;s combined mood. <span className="font-bold text-white/90">Moviefinding was never this effective.</span>
+        </p>
       </div>
 
       {/* Contact Section */}
-      <div className="max-w-xl mx-auto border-t border-white/10 pt-20">
+      <div className="max-w-xl mx-auto pt-20">
         <div className="text-center mb-12">
           <h2 className="font-display font-bold text-2xl md:text-4xl text-white">
             Get in touch
@@ -168,7 +128,7 @@ export default function About() {
             </button>
           </motion.div>
         ) : (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5 bg-[#0d0b1a]/80 border border-white/10 p-6 rounded-2xl shadow-xl">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div className="flex flex-col gap-1.5">
               <label htmlFor="name" className="text-[10px] font-bold text-white/50 uppercase tracking-wider pl-1">
                 Your Name
@@ -180,9 +140,8 @@ export default function About() {
                 value={formData.name}
                 onChange={handleChange}
                 disabled={status === "loading"}
-                className={`bg-[#050210]/60 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors text-white ${
-                  validationErrors.name ? "border-rose-500/50 focus:border-rose-500" : "border-white/10 focus:border-white/40"
-                }`}
+                className={`bg-[#050210]/60 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors text-white ${validationErrors.name ? "border-rose-500/50 focus:border-rose-500" : "border-white/10 focus:border-white/40"
+                  }`}
                 placeholder="Marek Kowalski"
               />
               {validationErrors.name && (
@@ -204,9 +163,8 @@ export default function About() {
                 value={formData.email}
                 onChange={handleChange}
                 disabled={status === "loading"}
-                className={`bg-[#050210]/60 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors text-white ${
-                  validationErrors.email ? "border-rose-500/50 focus:border-rose-500" : "border-white/10 focus:border-white/40"
-                }`}
+                className={`bg-[#050210]/60 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors text-white ${validationErrors.email ? "border-rose-500/50 focus:border-rose-500" : "border-white/10 focus:border-white/40"
+                  }`}
                 placeholder="marek@example.com"
               />
               {validationErrors.email && (
@@ -247,9 +205,8 @@ export default function About() {
                 onChange={handleChange}
                 disabled={status === "loading"}
                 rows={5}
-                className={`bg-[#050210]/60 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors text-white resize-none ${
-                  validationErrors.message ? "border-rose-500/50 focus:border-rose-500" : "border-white/10 focus:border-white/40"
-                }`}
+                className={`bg-[#050210]/60 border rounded-xl px-4 py-3 text-sm focus:outline-none transition-colors text-white resize-none ${validationErrors.message ? "border-rose-500/50 focus:border-rose-500" : "border-white/10 focus:border-white/40"
+                  }`}
                 placeholder="I love the concept! Can you add..."
               />
               {validationErrors.message && (

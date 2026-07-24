@@ -57,12 +57,11 @@ export default function Navbar() {
     <>
       <header
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${scrolled
-          ? "bg-[#050210]/85 backdrop-blur-md py-4 border-b border-white/10"
-          : "bg-gradient-to-b from-[#050210]/90 via-[#050210]/40 to-transparent py-6 border-b border-white/0"
+          ? "bg-[#050210]/85 backdrop-blur-md py-4 "
+          : "bg-gradient-to-b from-[#050210]/90 via-[#050210]/40 to-transparent py-6"
           }`}
       >
         <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-          {/* Logo & Brand matching moovy-front */}
           <Link href="/" className="flex items-center gap-2 group relative z-50">
             <span className="font-display font-bold text-2xl md:text-3xl tracking-tighter text-white group-hover:text-white/80 transition-colors">
               moovy<span className="text-[#b4b4b4]">®</span>

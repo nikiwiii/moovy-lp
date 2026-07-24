@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Info, CheckCircle, Mail, Loader2, Sparkles, Search, Plus, UserRound, Handshake } from "lucide-react";
 import PhoneMockup from "@/components/PhoneMockup";
 import VibesSection from "@/components/VibesSection";
-import SpotlightCard from "@/components/SpotlightCard";
+import BorderGlow from "@/components/BorderGlow";
 
 const steps = [
   {
@@ -60,15 +60,6 @@ export default function Home() {
     },
   };
 
-  const marqueeText = [
-    "40 minutes of scrolling, still nothing picked",
-    "\"I don't care, you choose\"",
-    "Three people, three different moods",
-    "The group chat that never decides",
-    "Someone always vetoes the pick",
-    "we'll find your perfect screening",
-  ];
-
   return (
     <div className="relative overflow-hidden w-full text-white">
       {/* ===== HERO ===== */}
@@ -120,34 +111,11 @@ export default function Home() {
               <ArrowRight size={16} />
             </Link>
           </motion.div>
-
-          <motion.div
-            variants={itemVariants}
-            className="mt-8 flex items-center gap-2 text-xs text-white/40 tracking-wider"
-          >
-            <Info size={13} />
-            <span>we&apos;ll find your perfect screening</span>
-          </motion.div>
         </motion.div>
       </section>
 
-      {/* ===== MARQUEE ===== */}
-      <section className="border-y border-white/10 bg-[#030108]/60 py-5 overflow-hidden w-full backdrop-blur-sm">
-        <div className="flex w-[200%] animate-marquee select-none">
-          {[...marqueeText, ...marqueeText].map((text, idx) => (
-            <span
-              key={idx}
-              className="font-display font-light text-sm md:text-base text-white/40 mr-16 flex items-center shrink-0 gap-16 uppercase tracking-wider"
-            >
-              <span>{text}</span>
-              <span className="text-white/20 font-bold">·</span>
-            </span>
-          ))}
-        </div>
-      </section>
-
       {/* ===== STEPS SECTION ===== */}
-      <section id="how" className="py-28 px-6 md:px-12 max-w-6xl mx-auto scroll-mt-10">
+      {/* <section id="how" className="py-28 px-6 md:px-12 max-w-6xl mx-auto scroll-mt-10">
         <motion.div
           initial={{ opacity: 0, y: 25 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -161,10 +129,10 @@ export default function Home() {
           <h2 className="font-display font-bold text-3xl md:text-5xl text-white leading-tight">
             From group chat to <span className="text-white/80">movie night</span> in three steps
           </h2>
-        </motion.div>
+        </motion.div> */}
 
-        {/* Steps Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+      {/* Steps Grid */}
+      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
           {steps.map((step, i) => (
             <motion.div
               key={i}
@@ -174,9 +142,15 @@ export default function Home() {
               transition={{ duration: 0.5, delay: i / 10 }}
               className="h-full"
             >
-              <SpotlightCard
-                className="h-full flex flex-col gap-2 bg-[#0d0b1a]/60 border border-white/10 hover:border-white/25 transition-all duration-300 p-8 rounded-[28px] items-center md:items-start text-center md:text-left"
-                spotlightColor="rgba(255, 255, 255, 0.08)"
+              <BorderGlow
+                className="h-full p-8 flex flex-col gap-2 items-center md:items-start text-center md:text-left"
+                backgroundColor="#0d0b1a"
+                borderRadius={28}
+                glowColor="270 80 70"
+                colors={['#ff5c8d', '#f47272', '#f88838']}
+                glowRadius={40}
+                glowIntensity={1.0}
+                edgeSensitivity={30}
               >
                 <div className="font-display mb-4 font-bold text-lg w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white">
                   {i + 1}
@@ -185,11 +159,14 @@ export default function Home() {
                 <p className="text-sm text-white/60 leading-relaxed">
                   {step.description}
                 </p>
-              </SpotlightCard>
+              </BorderGlow>
             </motion.div>
           ))}
         </div>
-      </section>
+      </section> */}
+
+      {/* ===== VIBES SECTION ===== */}
+      <VibesSection />
 
       {/* ===== INTERACTIVE DEMO (PHONE SLIDER) ===== */}
       <section className="py-12 md:py-20 bg-[#030108]/50 border-y border-white/10">
@@ -197,9 +174,6 @@ export default function Home() {
           <PhoneMockup />
         </div>
       </section>
-
-      {/* ===== VIBES SECTION ===== */}
-      <VibesSection />
 
       {/* ===== CTA WAITLIST ===== */}
       <section id="cta" className="py-32 px-6 md:px-12 text-center relative border-t border-white/10 scroll-mt-10 overflow-hidden w-full">
