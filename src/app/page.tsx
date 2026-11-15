@@ -2,28 +2,37 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
-import { ArrowRight, Info, CheckCircle, Mail, Loader2, Sparkles, Search, Plus, UserRound, Handshake } from "lucide-react";
-import PhoneMockup from "@/components/PhoneMockup";
+import Image from "next/image";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, CheckCircle2, Mail, Loader2, Check } from "lucide-react";
 import VibesSection from "@/components/VibesSection";
-import BorderGlow from "@/components/BorderGlow";
 
-const steps = [
+const processSteps = [
   {
-    title: "1. Start a Session",
-    description: "Send a session link. Friends join instantly from any browser — no account or app download required.",
+    num: "01",
+    title: "Drag your vibe",
+    image: "/moovy/screens/find-movie.jpg",
+    badgeValue: "11 vibes",
+    badgeLabel: "Tempo × Tone",
   },
   {
-    title: "2. Pick Your Mood & Rules",
-    description: "Everyone sets their vibe (Cozy Chill, Mind Bender, Date Night), runtime limit, and vetoes any unwanted genres.",
+    num: "02",
+    title: "Share one code",
+    image: "/moovy/screens/lobby-ready.jpg",
+    badgeValue: "6 chars",
+    badgeLabel: "No sign-up",
   },
   {
-    title: "3. Get Your Perfect Fit",
-    description: "Moovy calculates group consensus and returns matched movies with a clear breakdown explaining why it fits everyone.",
+    num: "03",
+    title: "Press play",
+    image: "/moovy/screens/recommendations.jpg",
+    badgeValue: "< 2 min",
+    badgeLabel: "To a match",
   },
 ];
 
 export default function Home() {
+  const [activeStep, setActiveStep] = useState(0);
   const [email, setEmail] = useState("");
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const [errorMessage, setErrorMessage] = useState("");
@@ -32,233 +41,245 @@ export default function Home() {
     e.preventDefault();
     if (!email || !email.includes("@")) {
       setStatus("error");
-      setErrorMessage("Please enter a valid email address.");
+      setErrorMessage("Enter a valid email address.");
       return;
     }
-
     setStatus("loading");
     setTimeout(() => {
       setStatus("success");
       setEmail("");
-    }, 1200);
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: { staggerChildren: 0.12 },
-    },
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] as const },
-    },
+    }, 1000);
   };
 
   return (
-    <div className="relative overflow-hidden w-full text-white">
+    <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10 text-white">
       {/* ===== HERO ===== */}
-      <section className="relative min-h-[90svh] flex flex-col items-center justify-center text-center px-6 pt-32 pb-20 max-w-5xl mx-auto z-10">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center"
-        >
+      <section className="relative rounded-[36px] bg-gradient-to-br from-[#131126] via-[#0d0b1a] to-[#050210] border border-white/10 overflow-hidden px-6 sm:px-12 pt-12 sm:pt-16 pb-0 lg:pb-0">
+        <div className="absolute -top-24 right-0 w-[420px] h-[420px] rounded-full bg-[#60D394]/12 blur-3xl pointer-events-none" />
+        <div className="absolute bottom-0 -left-20 w-[420px] h-[420px] rounded-full bg-[#0279b5]/20 blur-3xl pointer-events-none" />
 
-          {/* Heading matching moovy-front */}
-          <motion.h1
-            variants={itemVariants}
-            className="font-display font-bold text-4xl sm:text-6xl md:text-8xl tracking-tight leading-[0.95] text-white max-w-4xl"
-          >
-            welcome to <br />
-            <span className="text-white">moovy</span>
-            <span className="text-[#b4b4b4]">®</span>
-          </motion.h1>
-
-          <motion.p
-            variants={itemVariants}
-            className="mt-6 text-base sm:text-lg md:text-xl text-white/70 max-w-xl leading-relaxed font-normal"
-          >
-            Stop scrolling. Start watching. Everyone picks their mood, and Moovy finds the one movie your whole group agrees on.
-          </motion.p>
-
-          <ViewLineDivider />
-
-          {/* Interactive Feature Trigger Badges */}
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <motion.div
-            variants={itemVariants}
-            className="mt-10 flex flex-wrap gap-6 items-center justify-center"
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-7 pb-4 lg:pb-16"
           >
-            <Link
-              href="#cta"
-              className="inline-flex items-center gap-3 bg-white text-black hover:bg-white/90 font-bold text-sm uppercase tracking-wider px-8 py-4 rounded-full transition-all duration-200 shadow-xl hover:-translate-y-0.5"
-            >
-              <Search size={18} />
-              <span>Find a Movie</span>
-            </Link>
+            <div className="relative w-28 h-16 rounded-2xl overflow-hidden border border-white/15 mb-8 shadow-xl">
+              <Image
+                src="/moovy/yea.jpg"
+                alt="moovy"
+                fill
+                sizes="112px"
+                className="object-cover"
+                priority
+              />
+            </div>
 
-            <Link
-              href="#how"
-              className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-white border border-white/15 hover:border-white/40 px-6 py-4 rounded-full transition-all duration-200 bg-white/5"
-            >
-              <span>See how it works</span>
-              <ArrowRight size={16} />
-            </Link>
-          </motion.div>
-        </motion.div>
-      </section>
+            <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
+              Stop scrolling.
+              <br />
+              <span className="text-white/35">Start watching.</span>
+            </h1>
 
-      {/* ===== STEPS SECTION ===== */}
-      {/* <section id="how" className="py-28 px-6 md:px-12 max-w-6xl mx-auto scroll-mt-10">
-        <motion.div
-          initial={{ opacity: 0, y: 25 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-center mb-20"
-        >
-          <span className="text-xs font-bold text-white/40 uppercase tracking-[3px] block mb-3">
-            How It Works
-          </span>
-          <h2 className="font-display font-bold text-3xl md:text-5xl text-white leading-tight">
-            From group chat to <span className="text-white/80">movie night</span> in three steps
-          </h2>
-        </motion.div> */}
-
-      {/* Steps Grid */}
-      {/* <div className="grid grid-cols-1 md:grid-cols-3 gap-8 relative">
-          {steps.map((step, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: i / 10 }}
-              className="h-full"
-            >
-              <BorderGlow
-                className="h-full p-8 flex flex-col gap-2 items-center md:items-start text-center md:text-left"
-                backgroundColor="#0d0b1a"
-                borderRadius={28}
-                glowColor="270 80 70"
-                colors={['#ff5c8d', '#f47272', '#f88838']}
-                glowRadius={40}
-                glowIntensity={1.0}
-                edgeSensitivity={30}
-              >
-                <div className="font-display mb-4 font-bold text-lg w-12 h-12 rounded-full bg-white/10 border border-white/20 flex items-center justify-center text-white">
-                  {i + 1}
-                </div>
-                <h3 className="font-display font-bold text-xl text-white mb-1">{step.title}</h3>
-                <p className="text-sm text-white/60 leading-relaxed">
-                  {step.description}
-                </p>
-              </BorderGlow>
-            </motion.div>
-          ))}
-        </div>
-      </section> */}
-
-      {/* ===== VIBES SECTION ===== */}
-      <VibesSection />
-
-      {/* ===== INTERACTIVE DEMO (PHONE SLIDER) ===== */}
-      <section className="py-12 md:py-20 bg-[#030108]/50 border-y border-white/10">
-        <div className="max-w-6xl mx-auto px-6 md:px-12">
-          <PhoneMockup />
-        </div>
-      </section>
-
-      {/* ===== CTA WAITLIST ===== */}
-      <section id="cta" className="py-32 px-6 md:px-12 text-center relative border-t border-white/10 scroll-mt-10 overflow-hidden w-full">
-        <div className="max-w-3xl mx-auto relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7 }}
-          >
-            <h2 className="font-display font-bold text-3xl sm:text-5xl text-white leading-tight mb-6">
-              Your next movie night <br />
-              is <span className="text-white/80">one link</span> away.
-            </h2>
-            <p className="text-white/60 text-sm sm:text-base max-w-md mx-auto mb-10 leading-relaxed">
-              We&apos;re testing moovy® with early access pools. Sign up below to host your first discussion-free movie session.
+            <p className="mt-6 text-base text-[#a0a0b0] max-w-sm">
+              Everyone picks a mood. Moovy finds the film you all agree on.
             </p>
 
-            {/* Waitlist Form */}
-            <div className="max-w-md mx-auto">
-              {status === "success" ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="bg-[#0d0b1a] border border-white/20 p-8 rounded-2xl flex flex-col items-center"
-                >
-                  <CheckCircle className="w-12 h-12 text-[#60D394] mb-4" />
-                  <h4 className="font-display font-semibold text-lg text-white mb-2">You&apos;re on the list!</h4>
-                  <p className="text-xs text-white/60 leading-relaxed">
-                    Thank you for joining. We will email you an invite link as soon as an early access slot opens.
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleWaitlistSubmit} className="flex flex-col gap-3">
-                  <div className="relative flex items-center bg-[#0d0b1a] border border-white/15 focus-within:border-white/50 rounded-full p-1.5 transition-colors">
-                    <div className="pl-4 text-white/40">
-                      <Mail size={16} />
-                    </div>
-                    <input
-                      type="email"
-                      placeholder="Enter your email address"
-                      value={email}
-                      onChange={(e) => {
-                        setEmail(e.target.value);
-                        if (status === "error") setStatus("idle");
-                      }}
-                      disabled={status === "loading"}
-                      className="bg-transparent text-white placeholder:text-white/30 w-full px-3 py-3 text-sm focus:outline-none disabled:opacity-50"
-                    />
-                    <button
-                      type="submit"
-                      disabled={status === "loading"}
-                      className="bg-white hover:bg-white/90 text-black font-bold text-xs uppercase tracking-wider px-6 py-3.5 rounded-full transition-colors shrink-0 flex items-center gap-1.5 cursor-pointer disabled:opacity-70"
-                    >
-                      {status === "loading" ? (
-                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                      ) : (
-                        <span>Join Waitlist</span>
-                      )}
-                    </button>
-                  </div>
-
-                  {status === "error" && (
-                    <motion.p
-                      initial={{ opacity: 0, y: -5 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="text-xs text-rose-400 text-left pl-5 mt-1"
-                    >
-                      {errorMessage}
-                    </motion.p>
-                  )}
-                </form>
-              )}
-            </div>
-
-            <div className="mt-8 text-xs text-white/30 uppercase tracking-widest">
-              moovy® © 2026 · early access
+            <div className="mt-9 flex flex-wrap items-center gap-3">
+              <Link
+                href="#cta"
+                className="inline-flex items-center gap-3 bg-[#60D394] hover:bg-[#60D394]/90 text-[#050210] font-bold text-sm pl-6 pr-2 py-2 rounded-full transition-all shadow-lg shadow-[#60D394]/20"
+              >
+                <span>Get early access</span>
+                <span className="w-9 h-9 rounded-full bg-[#050210] text-white flex items-center justify-center">
+                  <ArrowUpRight size={16} />
+                </span>
+              </Link>
+              <Link
+                href="/features"
+                className="inline-flex items-center gap-2 text-sm font-semibold text-white/70 hover:text-white px-5 py-3.5 rounded-full transition-colors"
+              >
+                See the app
+              </Link>
             </div>
           </motion.div>
+
+          {/* Phones cropped at the bottom edge */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.1 }}
+            className="lg:col-span-5 relative h-[340px] sm:h-[420px] lg:h-[520px] flex justify-center"
+          >
+            <div className="absolute top-10 left-1/2 -translate-x-[8%] w-[190px] sm:w-[215px] aspect-[1080/2193] rounded-[32px] overflow-hidden border-[3px] border-white/15 bg-[#050210] rotate-6 opacity-80">
+              <Image
+                src="/moovy/screens/recommendations.jpg"
+                alt="Recommendations"
+                fill
+                sizes="220px"
+                className="object-cover object-top"
+              />
+            </div>
+            <div className="absolute top-14 left-1/2 -translate-x-[88%] w-[200px] sm:w-[230px] aspect-[1080/2193] rounded-[34px] overflow-hidden border-[3px] border-white/25 bg-[#050210] shadow-[0_30px_80px_rgba(0,0,0,0.8)] -rotate-3 z-10">
+              <Image
+                src="/moovy/screens/moodboard-adrenaline.jpg"
+                alt="Moodboard"
+                fill
+                priority
+                sizes="230px"
+                className="object-cover object-top"
+              />
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* ===== HOW IT WORKS ===== */}
+      <section className="py-20 sm:py-28">
+        <h2 className="font-display font-bold text-3xl sm:text-5xl tracking-tight mb-10 sm:mb-14 max-w-xl">
+          Three steps to movie night.
+        </h2>
+
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+          <div className="lg:col-span-5 flex flex-col gap-3">
+            {processSteps.map((step, idx) => {
+              const isActive = activeStep === idx;
+              return (
+                <button
+                  key={step.num}
+                  onClick={() => setActiveStep(idx)}
+                  className={`w-full text-left rounded-2xl px-6 py-6 border flex items-center justify-between gap-4 transition-all duration-200 cursor-pointer ${
+                    isActive
+                      ? "bg-[#1a1830] border-[#60D394]/45"
+                      : "bg-transparent border-white/8 hover:border-white/20"
+                  }`}
+                >
+                  <span
+                    className={`font-display font-bold text-5xl leading-none transition-colors ${
+                      isActive ? "text-[#60D394]" : "text-white/15"
+                    }`}
+                  >
+                    {step.num}
+                  </span>
+                  <span
+                    className={`font-display font-semibold text-lg text-right transition-colors ${
+                      isActive ? "text-white" : "text-white/50"
+                    }`}
+                  >
+                    {step.title}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="lg:col-span-7">
+            <div className="relative h-[360px] sm:h-[420px] rounded-[28px] overflow-hidden border border-white/10 bg-gradient-to-br from-[#131126] to-[#050210]">
+              <div className="absolute inset-0 bg-gradient-to-br from-[#0279b5]/15 via-transparent to-[#60D394]/12 pointer-events-none" />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeStep}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -16 }}
+                  transition={{ duration: 0.25 }}
+                  className="absolute inset-x-0 top-8 bottom-0 flex justify-center"
+                >
+                  <div className="relative w-[200px] sm:w-[230px] aspect-[1080/2193] rounded-t-[32px] overflow-hidden border-t-[3px] border-x-[3px] border-white/20 shadow-2xl">
+                    <Image
+                      src={processSteps[activeStep].image}
+                      alt={processSteps[activeStep].title}
+                      fill
+                      sizes="240px"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </motion.div>
+              </AnimatePresence>
+
+              <div className="absolute bottom-5 right-5 rounded-2xl bg-[#131126]/95 border border-white/15 backdrop-blur-md px-4 py-3 min-w-[130px]">
+                <span className="font-display font-bold text-xl text-white block leading-none">
+                  {processSteps[activeStep].badgeValue}
+                </span>
+                <div className="flex items-center justify-between gap-2 mt-2">
+                  <span className="text-[10px] text-[#a0a0b0]">
+                    {processSteps[activeStep].badgeLabel}
+                  </span>
+                  <span className="w-4 h-4 rounded-full bg-[#60D394]/20 text-[#60D394] flex items-center justify-center">
+                    <Check size={10} />
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== VIBES ===== */}
+      <section className="pb-20 sm:pb-28">
+        <VibesSection />
+      </section>
+
+      {/* ===== CTA ===== */}
+      <section
+        id="cta"
+        className="relative rounded-[36px] bg-gradient-to-br from-[#131126] via-[#0d0b1a] to-[#050210] border border-white/10 p-10 sm:p-16 text-center scroll-mt-24 overflow-hidden"
+      >
+        <div className="absolute -top-24 left-1/2 -translate-x-1/2 w-96 h-96 rounded-full bg-[#60D394]/10 blur-3xl pointer-events-none" />
+
+        <div className="relative max-w-lg mx-auto">
+          <h2 className="font-display font-bold text-4xl sm:text-5xl tracking-tight mb-8">
+            One code.
+            <br />
+            <span className="text-white/35">Zero debates.</span>
+          </h2>
+
+          {status === "success" ? (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="bg-[#050210]/80 border border-[#60D394]/30 p-6 rounded-2xl flex flex-col items-center"
+            >
+              <CheckCircle2 className="w-9 h-9 text-[#60D394] mb-2" />
+              <p className="font-display font-semibold text-base">You&apos;re on the list.</p>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleWaitlistSubmit} className="flex flex-col gap-2">
+              <div className="flex items-center bg-[#050210]/90 border border-white/15 focus-within:border-[#60D394]/60 rounded-full p-1.5 transition-colors">
+                <div className="pl-3.5 text-white/40">
+                  <Mail size={16} />
+                </div>
+                <input
+                  type="email"
+                  placeholder="Your email"
+                  value={email}
+                  onChange={(e) => {
+                    setEmail(e.target.value);
+                    if (status === "error") setStatus("idle");
+                  }}
+                  disabled={status === "loading"}
+                  className="bg-transparent text-white placeholder:text-white/35 w-full px-3 py-2.5 text-sm focus:outline-none disabled:opacity-50"
+                />
+                <button
+                  type="submit"
+                  disabled={status === "loading"}
+                  className="bg-[#60D394] hover:bg-[#60D394]/90 text-[#050210] font-bold text-sm px-6 py-3 rounded-full transition-colors shrink-0 flex items-center gap-1.5 cursor-pointer disabled:opacity-70"
+                >
+                  {status === "loading" ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <span>Join</span>
+                  )}
+                </button>
+              </div>
+              {status === "error" && (
+                <p className="text-xs text-rose-400 text-left pl-4">{errorMessage}</p>
+              )}
+            </form>
+          )}
         </div>
       </section>
     </div>
   );
-}
-
-function ViewLineDivider() {
-  return <div className="w-16 h-[1px] bg-white/20 mt-6 mb-2" />;
 }

@@ -38,25 +38,25 @@ export default function RootLayout({
         {/* Background Layers: WebGL Shader + Floating Glow Orbs */}
         <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden">
           {/* DarkVeil WebGL Canvas */}
-          <div className="absolute inset-0 z-0 opacity-50">
+          <div className="absolute inset-0 z-0 opacity-35">
             <DarkVeil
-              speed={0.4}
-              scanlineIntensity={0.12}
-              noiseIntensity={0.03}
+              speed={0.35}
+              scanlineIntensity={0.08}
+              noiseIntensity={0.02}
               resolutionScale={1.0}
-              hueShift={230}
-              warpAmount={0.8}
+              hueShift={220}
+              warpAmount={0.6}
             />
           </div>
 
           {/* Floating Ambient Orbs */}
-          <div className="absolute inset-0 z-10 opacity-70 mix-blend-screen">
+          <div className="absolute inset-0 z-10 opacity-50 mix-blend-screen">
             <AnimatedBackground />
           </div>
         </div>
 
         <Navbar />
-        <main className="flex-grow z-10 relative">
+        <main className="flex-grow z-10 relative pt-24 pb-12">
           {children}
         </main>
         <Footer />
