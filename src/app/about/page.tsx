@@ -60,7 +60,7 @@ export default function About() {
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10 space-y-6 text-white">
-      <section className="rounded-[32px] bg-[#0d0b1a]/85 border border-white/10 p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <section className="justify-self-center rounded-[32px] bg-[#0d0b1a]/85 border border-white/10 p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
         <div className="lg:col-span-6 space-y-4">
           <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider text-white/70 bg-white/5 border border-white/10">
             Our Story
@@ -86,7 +86,7 @@ export default function About() {
         </div>
       </section>
 
-      <section className="rounded-[32px] bg-[#090717]/90 border border-white/10 p-6 sm:p-10">
+      {/* <section className="rounded-[32px] bg-[#090717]/90 border border-white/10 p-6 sm:p-10">
         <div className="max-w-xl mx-auto">
           <div className="mb-8">
             <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider text-white/70 bg-white/5 border border-white/10 mb-3">
@@ -224,7 +224,7 @@ export default function About() {
             </form>
           )}
         </div>
-      </section>
+      </section> */}
     </div>
   );
 }

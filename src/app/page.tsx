@@ -10,23 +10,23 @@ import VibesSection from "@/components/VibesSection";
 const processSteps = [
   {
     num: "01",
-    title: "Drag your vibe",
-    image: "/moovy/screens/find-movie.jpg",
-    badgeValue: "11 vibes",
-    badgeLabel: "Tempo × Tone",
+    title: "Share one code",
+    image: "/moovy/screens/session-created.jpg",
+    badgeValue: "2 Clicks",
+    badgeLabel: "To start the Session",
   },
   {
     num: "02",
-    title: "Share one code",
-    image: "/moovy/screens/lobby-ready.jpg",
-    badgeValue: "6 chars",
-    badgeLabel: "No sign-up",
+    title: "Drag your vibe",
+    image: "/moovy/screens/lobby-vibes.jpg",
+    badgeValue: "11 Vibe Groups",
+    badgeLabel: "Mix them together",
   },
   {
     num: "03",
     title: "Press play",
     image: "/moovy/screens/recommendations.jpg",
-    badgeValue: "< 2 min",
+    badgeValue: "< 1 min",
     badgeLabel: "To a match",
   },
 ];
@@ -65,16 +65,6 @@ export default function Home() {
             transition={{ duration: 0.6 }}
             className="lg:col-span-7 pb-4 lg:pb-16"
           >
-            <div className="relative w-28 h-16 rounded-2xl overflow-hidden border border-white/15 mb-8 shadow-xl">
-              <Image
-                src="/moovy/yea.jpg"
-                alt="moovy"
-                fill
-                sizes="112px"
-                className="object-cover"
-                priority
-              />
-            </div>
 
             <h1 className="font-display font-bold text-5xl sm:text-6xl lg:text-7xl leading-[0.95] tracking-tight">
               Stop scrolling.
@@ -149,23 +139,20 @@ export default function Home() {
                 <button
                   key={step.num}
                   onClick={() => setActiveStep(idx)}
-                  className={`w-full text-left rounded-2xl px-6 py-6 border flex items-center justify-between gap-4 transition-all duration-200 cursor-pointer ${
-                    isActive
-                      ? "bg-[#1a1830] border-[#60D394]/45"
-                      : "bg-transparent border-white/8 hover:border-white/20"
-                  }`}
+                  className={`w-full text-left rounded-2xl px-6 py-6 border flex items-center justify-between gap-4 transition-all duration-200 cursor-pointer ${isActive
+                    ? "bg-[#1a1830] border-[#60D394]/45"
+                    : "bg-transparent border-white/8 hover:border-white/20"
+                    }`}
                 >
                   <span
-                    className={`font-display font-bold text-5xl leading-none transition-colors ${
-                      isActive ? "text-[#60D394]" : "text-white/15"
-                    }`}
+                    className={`font-display font-bold text-5xl leading-none transition-colors ${isActive ? "text-[#60D394]" : "text-white/15"
+                      }`}
                   >
                     {step.num}
                   </span>
                   <span
-                    className={`font-display font-semibold text-lg text-right transition-colors ${
-                      isActive ? "text-white" : "text-white/50"
-                    }`}
+                    className={`font-display font-semibold text-lg text-right transition-colors ${isActive ? "text-white" : "text-white/50"
+                      }`}
                   >
                     {step.title}
                   </span>
@@ -230,12 +217,12 @@ export default function Home() {
 
         <div className="relative max-w-lg mx-auto">
           <h2 className="font-display font-bold text-4xl sm:text-5xl tracking-tight mb-8">
-            One code.
+            Coming soon.
             <br />
-            <span className="text-white/35">Zero debates.</span>
+            <span className="text-white/35">We still need a minute.</span>
           </h2>
 
-          {status === "success" ? (
+          {/* {status === "success" ? (
             <motion.div
               initial={{ opacity: 0, scale: 0.96 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -277,7 +264,7 @@ export default function Home() {
                 <p className="text-xs text-rose-400 text-left pl-4">{errorMessage}</p>
               )}
             </form>
-          )}
+          )} */}
         </div>
       </section>
     </div>

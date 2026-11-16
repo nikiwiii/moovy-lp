@@ -11,7 +11,6 @@ interface FeatureScreen {
   category: "discover" | "sessions" | "results";
   title: string;
   tagline: string;
-  chips: string[];
 }
 
 const featureScreens: FeatureScreen[] = [
@@ -21,7 +20,6 @@ const featureScreens: FeatureScreen[] = [
     category: "discover",
     title: "Quick Start",
     tagline: "Solo pick, join, or create a session.",
-    chips: ["1-Tap Entry", "No Friction"],
   },
   {
     id: 1,
@@ -29,7 +27,6 @@ const featureScreens: FeatureScreen[] = [
     category: "discover",
     title: "2D Moodboard",
     tagline: "Drag across tempo & tone to blend vibes.",
-    chips: ["11 Vibes", "Tempo × Tone"],
   },
   {
     id: 2,
@@ -37,15 +34,13 @@ const featureScreens: FeatureScreen[] = [
     category: "discover",
     title: "Live Vibe Radar",
     tagline: "Instant matching tags as you drag.",
-    chips: ["Real-Time", "Mood Blend"],
   },
   {
     id: 3,
     image: "/moovy/screens/tags-active.jpg",
     category: "discover",
     title: "Include & Exclude",
-    tagline: "Lock in must-have moods and veto hard nos.",
-    chips: ["Include", "Exclude"],
+    tagline: "Alternatively choose tags one by one.",
   },
   {
     id: 4,
@@ -53,7 +48,6 @@ const featureScreens: FeatureScreen[] = [
     category: "discover",
     title: "Runtime & Filters",
     tagline: "Set max runtime and skip watched or anime.",
-    chips: ["Max Runtime", "Watched Filter"],
   },
   {
     id: 5,
@@ -61,7 +55,6 @@ const featureScreens: FeatureScreen[] = [
     category: "sessions",
     title: "Crew or Date Mode",
     tagline: "Pick your meeting type before inviting.",
-    chips: ["Crew", "Date"],
   },
   {
     id: 6,
@@ -69,7 +62,6 @@ const featureScreens: FeatureScreen[] = [
     category: "sessions",
     title: "6-Char Invite Code",
     tagline: "Copy and share one code with friends.",
-    chips: ["Instant Lobby", "Copy Code"],
   },
   {
     id: 7,
@@ -77,7 +69,6 @@ const featureScreens: FeatureScreen[] = [
     category: "sessions",
     title: "Everyone Ready",
     tagline: "Live lobby sync before generating picks.",
-    chips: ["Live Sync", "Generate Ideas"],
   },
   {
     id: 8,
@@ -85,7 +76,6 @@ const featureScreens: FeatureScreen[] = [
     category: "results",
     title: "Matched Movies",
     tagline: "Match scores, streaming apps & group voting.",
-    chips: ["Stream On", "Love / Hate"],
   },
   {
     id: 9,
@@ -93,7 +83,6 @@ const featureScreens: FeatureScreen[] = [
     category: "results",
     title: "Story & Rent / Buy",
     tagline: "Full storyline and every streaming store.",
-    chips: ["Storyline", "Providers"],
   },
   {
     id: 10,
@@ -101,15 +90,13 @@ const featureScreens: FeatureScreen[] = [
     category: "discover",
     title: "Taste Onboarding",
     tagline: "Add favorite films to sharpen suggestions.",
-    chips: ["Favorites", "Profile"],
   },
   {
     id: 11,
     image: "/moovy/screens/my-space.jpg",
-    category: "results",
+    category: "discover",
     title: "My Space",
     tagline: "Watchlist, ratings, and friends in one hub.",
-    chips: ["Watchlist", "Ratings"],
   },
 ];
 
@@ -142,15 +129,9 @@ export default function Features() {
       {/* Header Bento */}
       <section className="rounded-[32px] bg-[#0d0b1a]/85 border border-white/10 p-6 sm:p-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider text-white/70 bg-white/5 border border-white/10 mb-3">
-            Interface
-          </span>
           <h1 className="font-display font-bold text-3xl sm:text-5xl text-white tracking-tight">
             App Screens
           </h1>
-          <p className="text-[#a0a0b0] text-sm sm:text-base mt-2 max-w-md">
-            Every screen inside moovy — from 2D moodboards to instant streaming matches.
-          </p>
         </div>
 
         {/* Filter Pills */}
@@ -159,11 +140,10 @@ export default function Features() {
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
-              className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full border transition-all cursor-pointer ${
-                activeTab === tab
-                  ? "bg-[#60D394] text-[#050210] border-[#60D394]"
-                  : "bg-[#131126] text-white/70 border-white/10 hover:border-white/30 hover:text-white"
-              }`}
+              className={`text-xs font-bold uppercase tracking-wider px-4 py-2 rounded-full border transition-all cursor-pointer ${activeTab === tab
+                ? "bg-[#60D394] text-[#050210] border-[#60D394]"
+                : "bg-[#131126] text-white/70 border-white/10 hover:border-white/30 hover:text-white"
+                }`}
             >
               {tab}
             </button>
@@ -201,17 +181,6 @@ export default function Features() {
                   <div className="p-3 bg-white text-[#050210] rounded-full shadow-lg">
                     <Maximize2 size={16} />
                   </div>
-                </div>
-
-                <div className="absolute bottom-3 left-3 right-3 flex flex-wrap gap-1.5 z-10">
-                  {screen.chips.map((chip) => (
-                    <span
-                      key={chip}
-                      className="text-[10px] font-medium px-2.5 py-0.5 rounded-full bg-[#050210]/85 border border-white/15 text-white/85 backdrop-blur-md"
-                    >
-                      {chip}
-                    </span>
-                  ))}
                 </div>
               </div>
 

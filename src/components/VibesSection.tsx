@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, Sparkles } from "lucide-react";
+import { ChevronDown, Clapperboard } from "lucide-react";
 
 interface MovieRecommendation {
   title: string;
@@ -227,9 +227,8 @@ export default function VibesSection() {
                   backgroundColor: isActive ? `${item.color}22` : "#131126",
                   color: isActive ? "#ffffff" : "#a0a0b0",
                 }}
-                className={`font-display font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-full border transition-all duration-200 cursor-pointer flex items-center gap-2 ${
-                  isActive ? "shadow-lg" : "hover:border-white/25 hover:text-white"
-                }`}
+                className={`font-display font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-full border transition-all duration-200 cursor-pointer flex items-center gap-2 ${isActive ? "shadow-lg" : "hover:border-white/25 hover:text-white"
+                  }`}
               >
                 <VibeBars color={item.color} active={isActive} />
                 <span>{item.label}</span>
@@ -258,7 +257,7 @@ export default function VibesSection() {
                 <div
                   className={`w-[96px] h-[136px] shrink-0 rounded-2xl bg-gradient-to-br ${currentMovie.posterBg} border border-white/10 flex flex-col items-center justify-center p-2.5 text-center`}
                 >
-                  <Sparkles className="w-6 h-6 mb-2 opacity-80" style={{ color: currentVibe.color }} />
+                  <Clapperboard className="w-6 h-6 mb-2 opacity-80" style={{ color: currentVibe.color }} />
                   <span className="text-[10px] font-bold uppercase tracking-wide text-white/90 line-clamp-3 font-display">
                     {currentMovie.title}
                   </span>

@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Users, Filter, Tv, Flame, ChevronDown } from "lucide-react";
+import { Users, Filter, Tv, Flame, ChevronRight } from "lucide-react";
 
 interface FAQItem {
   question: string;
@@ -15,28 +15,24 @@ const workflowSteps = [
     num: "01",
     title: "Instant Lobby Sync",
     desc: "Start a session and share a 6-character code. Friends join immediately.",
-    badge: "No Sign-Up",
   },
   {
     icon: <Filter className="w-5 h-5 text-[#0279b5]" />,
     num: "02",
     title: "2D Moodboard & Vetoes",
     desc: "Drag across tempo & tone, set runtime caps, and exclude unwanted vibes.",
-    badge: "11 Vibes",
   },
   {
     icon: <Tv className="w-5 h-5 text-[#9B5DE5]" />,
     num: "03",
     title: "Consensus Engine",
     desc: "Moovy merges everyone's preferences into ranked films available to stream.",
-    badge: "20+ Services",
   },
   {
     icon: <Flame className="w-5 h-5 text-[#FF6B35]" />,
     num: "04",
     title: "Love / Like / Hate",
     desc: "Vote on matched titles together and press play in under two minutes.",
-    badge: "< 2min",
   },
 ];
 
@@ -64,7 +60,13 @@ const faqs: FAQItem[] = [
 ];
 
 export default function HowItWorks() {
-  const [openFAQIndex, setOpenFAQIndex] = useState<number | null>(0);
+  const [openFAQIndices, setOpenFAQIndices] = useState<number[]>([0]);
+
+  const toggleFAQ = (idx: number) => {
+    setOpenFAQIndices((prev) =>
+      prev.includes(idx) ? prev.filter((i) => i !== idx) : [...prev, idx]
+    );
+  };
 
   return (
     <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-10 space-y-6 text-white">
@@ -95,9 +97,6 @@ export default function HowItWorks() {
                     {step.num}
                   </span>
                 </div>
-                <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-white/75">
-                  {step.badge}
-                </span>
               </div>
 
               <div>
@@ -114,7 +113,7 @@ export default function HowItWorks() {
       </section>
 
       {/* FAQ Bento */}
-      <section className="rounded-[32px] bg-[#090717]/90 border border-white/10 p-6 sm:p-10">
+      <motion.section layout className="p-6 sm:p-10">
         <div className="max-w-3xl mx-auto">
           <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider text-white/70 bg-white/5 border border-white/10 mb-3">
             FAQ
@@ -123,49 +122,56 @@ export default function HowItWorks() {
             Quick Answers
           </h2>
 
-          <div className="flex flex-col gap-3">
+          <div className="flex flex-col gap-4">
             {faqs.map((faq, idx) => {
-              const isOpen = openFAQIndex === idx;
+              const isOpen = openFAQIndices.includes(idx);
               return (
-                <div
-                  key={idx}
-                  className="bg-[#131126] border border-white/10 rounded-2xl overflow-hidden"
-                >
-                  <button
-                    onClick={() => setOpenFAQIndex(isOpen ? null : idx)}
-                    className="w-full flex items-center justify-between p-4 sm:p-5 text-left font-display font-semibold text-sm sm:text-base text-white hover:text-white/85 transition-colors cursor-pointer"
-                  >
-                    <span>{faq.question}</span>
-                    <motion.span
-                      animate={{ rotate: isOpen ? 180 : 0 }}
-                      transition={{ duration: 0.2 }}
-                      className="text-white/40 shrink-0"
+                <motion.div layout key={idx} className="flex flex-col">
+                  {/* Question bubble (right-aligned) */}
+                  <div className="flex justify-end">
+                    <button
+                      onClick={() => toggleFAQ(idx)}
+                      className={`group max-w-[88%] sm:max-w-[75%] flex items-center gap-3 px-5 py-3.5 rounded-2xl rounded-br-sm border text-right font-display font-semibold text-sm sm:text-base transition-all cursor-pointer ${isOpen
+                        ? "bg-[#60D394]/15 border-[#60D394]/45 text-white"
+                        : "bg-[#1a1830] border-white/10 text-white/85 hover:border-white/25 hover:text-white"
+                        }`}
                     >
-                      <ChevronDown size={18} />
-                    </motion.span>
-                  </button>
+                      <span>{faq.question}</span>
+                      <motion.span
+                        animate={{ rotate: isOpen ? 90 : 0 }}
+                        transition={{ duration: 0.2 }}
+                        className={`shrink-0 transition-colors ${isOpen ? "text-[#60D394]" : "text-white/40 group-hover:text-white/75"
+                          }`}
+                      >
+                        <ChevronRight size={18} />
+                      </motion.span>
+                    </button>
+                  </div>
 
+                  {/* Answer bubble (left-aligned) */}
                   <AnimatePresence initial={false}>
                     {isOpen && (
                       <motion.div
-                        initial={{ height: 0 }}
-                        animate={{ height: "auto" }}
-                        exit={{ height: 0 }}
-                        transition={{ duration: 0.2 }}
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: "easeInOut" }}
                         className="overflow-hidden"
                       >
-                        <div className="px-4 sm:px-5 pb-4 text-xs sm:text-sm text-[#a0a0b0] border-t border-white/5 pt-3">
-                          {faq.answer}
+                        <div className="flex justify-start pt-2.5">
+                          <div className="max-w-[88%] sm:max-w-[75%] bg-[#131126] border border-white/10 rounded-2xl rounded-bl-sm px-5 py-3.5 text-xs sm:text-sm text-[#d0d0dd] leading-relaxed">
+                            {faq.answer}
+                          </div>
                         </div>
                       </motion.div>
                     )}
                   </AnimatePresence>
-                </div>
+                </motion.div>
               );
             })}
           </div>
         </div>
-      </section>
+      </motion.section>
     </div>
   );
 }
